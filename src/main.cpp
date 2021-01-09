@@ -63,6 +63,8 @@ Servo s10;
 Servo s11;
 Servo s12;
 
+
+// These oddly named integers appears to store the current "location" of each servo.
 int i0H0 = 0;
 int i1H0 = 0;
 int i2H0 = 0;
@@ -147,16 +149,7 @@ int i10H5 = 0;
 int i11H5 = 0;
 int i12H5 = 0;
 
-// int status0 = 0; Was used as a counter in a while loop. Replaced with for
-int status1 = 0;
-// int status2 = 0; Was used as a counter in a while loop. Replaced with for
-int status3 = 0;
-int status4 = 0;
-int status5 = 0;
-
 int battery_voltage;
-//double showbattery; // Doesnt need to be global.
-//char judge = 0; // Helt jävla onödig variabel som bara används i funktionen Judgement()
 String comdata = "";
 
 String text1 = "1";
@@ -183,13 +176,7 @@ String phone10 = "rightStop\n";
 
 #define ACTIONSPEED  1 // The delay in milliseconds between every time we make a servo do something
 unsigned long uptime = 0;
-//char serialcom;
 int angle = 20;
-//char right = 0; // Only used locally in a loop
-//char count = 0;
-//long counter = 0;
-
-
 
 
 void setup() {
@@ -236,7 +223,7 @@ void setup() {
     delay(10);
     Serial.print("V:");
     Serial.println(showbattery);
-    delay(250); // What are we waiting for??????
+    delay(250);
 
 
 }
@@ -244,7 +231,7 @@ void setup() {
 
 void loop() {
 
-    while (Serial.available() > 0)
+    while (Serial.available() > 0) // TODO: See if we can simplify this.
     {
         comdata += char(Serial.read());
         delay(1);
@@ -326,6 +313,7 @@ void loop() {
 
 
 void battery() { // Checks the current battery level and sets lights to indicate if its low or not
+    // TODO: If we assume it will be charged for the most part, swap the if/else cases. Failed if-cases use two instructions compared to 1 upon success.
     if (battery_voltage < 860 ) {                    //If batteryvoltage is below 10.5V and higher than 8.0V 860
         for (int i = 0; i < 6; i++) {
             strip.setPixelColor(i, strip.Color(255, 0, 0)); // Red
@@ -392,9 +380,9 @@ void original_latest() {
 
 void move_backward_latest1() {
     //PROCESS 5:
+    // TODO: This is stupid. Fix it.
 
-    while (status5 <= 45) {
-        status5++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90 - i0H5);
         i0H5++;
         if (i0H5 == 46) {
@@ -427,11 +415,10 @@ void move_backward_latest1() {
         s10.write(90);
         delay(ACTIONSPEED);
     }
-    status5 = 0;
 
     //PROCESS 3:
-    while (status3 <= 45) {
-        status3++;
+
+    for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
         s0.write(45 + i0H3);
         i0H3++;
@@ -512,14 +499,12 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
 
-    } // Ending while. status3 > 45
-    status3 = 0;
+    }
 
     /*********rotate backward to the initial position and rotate forward**********/
 
     //PROCESS 4:
-    while (status4 <= 45) {
-        status4++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90);
         //  s1.write(45);
         //  delay(ACTIONSPEED);
@@ -550,12 +535,10 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
 
-    } // Ending while. status4 > 0
-    status4 = 0;
+    }
 
     //PROCESS 1:
-    while (status1 <= 45) {
-        status1++;
+    for (int i = 0; i <= 45; i++) {
         // Raiseleg1
         s0.write(90);
         s1.write(45 + i1H1);
@@ -627,17 +610,15 @@ void move_backward_latest1() {
         }
 
         delay(ACTIONSPEED);
-    } // End while loop. status > 45
-    status1 = 0;
-} // Finally end function
+    }
+}
 
 
 void move_forward_latest1() {
     /**********rotate forward and rotate backward to the initial position**********/
-
+    // TODO: This is stupid. Fix it.
     //PROCESS 4:(raise the second leg)
-    while (status4 <= 45) {
-        status4++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90);
         s2.write(90 - i2H4); //100-i2H4
         i2H4++;
@@ -665,13 +646,11 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
     }// End while loop. status4 > 45
-    status4 = 0;
 
     //PROCESS 3:
     /*(rorate second leg forward move second leg back to the ground) and
       (torate first leg backward)*/
-    while (status3 <= 45) {
-        status3++;
+    for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
         s0.write(90);//90
         s1.write(90 - i1H3);
@@ -742,14 +721,12 @@ void move_forward_latest1() {
 
         delay(ACTIONSPEED);
 
-    } // ending while. status3 > 45
-    status3 = 0;
+    }
 
     /*********rotate backward to the initial position and rotate forward**********/
 
     //PROCESS 5:(raise the first leg)
-    while (status5 <= 45) {
-        status5++;
+    for (int i = 0; i <= 45; i++){
         s0.write(90 - i0H5); //90-i0H5
         i0H5++;
         if (i0H5 == 46) {
@@ -778,15 +755,12 @@ void move_forward_latest1() {
         //s11.write(45);
         delay(ACTIONSPEED);
 
-    } // exit while. status5 > 45
-    status5 = 0;
-
+    }
 
     //PROCESS 1:
     /*(rorate first leg forward move first leg back to the ground) and
       (rorate second leg backward)*/
-    while (status1 <= 45) {
-        status1++;
+    for (int i = 0; i <= 45; i++) {
         // Rise the leg1
         s0.write(45 + i0H1);
         i0H1++;
@@ -862,14 +836,13 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
     }
-    status1 = 0;
 }
 
 
 void move_left_latest1() {
+    // TODO: This is stupid. Fix it.
     //PROCESS 4:(raise the second leg)
-    while (status4 <= 45) {
-        status4++;
+    for (int i = 0; i <= 45; i++){
         s0.write(90);
         //  s1.write(45);
         //  delay(ACTIONSPEED);
@@ -904,13 +877,11 @@ void move_left_latest1() {
         //s11.write(90);
         delay(ACTIONSPEED);
     }
-    status4 = 0;
 
     //PROCESS 3:
     /*(rorate second leg forward move second leg back to the ground) and
       (torate first leg backward)*/
-    while (status3 <= 45) {
-        status3++;
+    for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         s0.write(90);
         s1.write(45 + i1H3);
@@ -983,14 +954,12 @@ void move_left_latest1() {
         }
         delay(ACTIONSPEED);
     }
-    status3 = 0;
 
     /*********rotate backward to the initial position and rotate forward**********/
 
 
     //PROCESS 5:(raise the first leg)
-    while (status5 <= 45) {
-        status5++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90 - i0H5);
         i0H5++;
         if (i0H5 == 46) {
@@ -1027,14 +996,12 @@ void move_left_latest1() {
         //s11.write(45);
         delay(ACTIONSPEED);
     }
-    status5 = 0;
 
 
     //PROCESS 1:
     /*(rorate first leg forward move first leg back to the ground) and
       (torate second leg backward)*/
-    while (status1 <= 45) {
-        status1++;
+    for (int i = 0; i <= 45; i++) {
         // Rise the leg1
         s0.write(45 + i0H1);
         i0H1++;
@@ -1107,19 +1074,15 @@ void move_left_latest1() {
         }
         delay(ACTIONSPEED);
     }
-    status1 = 0;
 }
 
 
 void move_right_latest1() {
 /**********rotate forward and rotate backward to the initial position**********/
+    // TODO: Fix this.
 
-    //   s0.write(90);
-    //   s4.write(90);
-    //   s8.write(90);
     //PROCESS 4:(raise the second leg)
-    while (status4 <= 45) {
-        status4++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90);
         //  s1.write(90);
         //  delay(ACTIONSPEED);
@@ -1157,13 +1120,11 @@ void move_right_latest1() {
         //s11.write(45);
         delay(ACTIONSPEED);
     }
-    status4 = 0;
 
     //PROCESS 3:
     /*(rorate second leg forward move second leg back to the ground) and
       (torate first leg backward)*/
-    while (status3 <= 45) {
-        status3++;
+    for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         s0.write(90);
         s1.write(90 - i1H3);
@@ -1236,14 +1197,12 @@ void move_right_latest1() {
         }
         delay(ACTIONSPEED);
     }
-    status3 = 0;
 
     /*********rotate backward to the initial position and rotate forward**********/
 
 
     //PROCESS 5:(raise the first leg)
-    while (status5 <= 45) {
-        status5++;
+    for (int i = 0; i <= 45; i++) {
         s0.write(90 - i0H5);
 
         i0H5++;
@@ -1280,13 +1239,11 @@ void move_right_latest1() {
         //s11.write(90);
         delay(ACTIONSPEED);
     }
-    status5 = 0;
 
     //PROCESS 1:
     /*(rorate first leg forward move first leg back to the ground) and
       (torate second leg backward)*/
-    while (status1 <= 45) {
-        status1++;
+    for (int i = 0; i <= 45; i++) {
         // Rise the leg1
         s0.write(45 + i0H1);
         i0H1++;
@@ -1358,8 +1315,6 @@ void move_right_latest1() {
         }
         delay(ACTIONSPEED);
     }
-    status1 = 0;
-
     /**********rotate forward and rotate backward to the initial position**********/
 }
 
@@ -1764,6 +1719,7 @@ void attack() {
 }
 
 char judgement(String &comdata) { // uses serial input to determine our next action
+    // TODO: See if we can reprogam the control script so this can be simplified.
     char judge = 0;
     if (comdata.length() > 0)
     { if (comdata.endsWith(text1) || comdata.endsWith(phone1)) { //forward
