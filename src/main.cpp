@@ -48,7 +48,7 @@ float angle_pitch_output, angle_roll_output, angle_yaw_output;
 float angle_changed;
 // long a; // Used in one function call.
 
-// Create servo object
+// Create servo objects
 Servo s0;
 Servo s1;
 Servo s2;
@@ -155,7 +155,7 @@ int status4 = 0;
 int status5 = 0;
 
 int battery_voltage;
-double showbattery;
+//double showbattery; // Doesnt need to be global.
 //char judge = 0; // Helt jävla onödig variabel som bara används i funktionen Judgement()
 String comdata = "";
 
@@ -182,12 +182,12 @@ String phone9 = "leftStop\n";
 String phone10 = "rightStop\n";
 
 #define ACTIONSPEED  1 // The delay in milliseconds between every time we make a servo do something
-unsigned long showtime = 0;
-char serialcom;
+unsigned long uptime = 0;
+//char serialcom;
 int angle = 20;
-char right = 0;
-char count = 0;
-long counter = 0;
+//char right = 0; // Only used locally in a loop
+//char count = 0;
+//long counter = 0;
 
 
 
@@ -231,7 +231,7 @@ void setup() {
 
     //send the battery capacity data to ESP8266
     battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08;
-    showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
+    double showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
     Serial.println("AT+CIPSEND=0,6\r\n");
     delay(10);
     Serial.print("V:");
@@ -250,7 +250,7 @@ void loop() {
         delay(1);
     }
 
-    char judge = judgement();
+    char judge = judgement(comdata);
     Serial.println((int)judge);
     switch (judge) {
         case 1: while (!Serial.available()) {
@@ -362,18 +362,14 @@ void sendultrasonic() { // Sends an ultrasonic signal and rotates head to scan t
 void sendbattery() {
     while (Serial.available() <= 0) {
         battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08; // Sets global variable battery_voltage to... the battery voltage
-        showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
-        if (millis() - showtime > 15000) { // If it's been more than 150 seconds since last time this function was called
+        double showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
+        if (millis() - uptime > 15000) { // If it's been more than 150 seconds since last time this function was called
             Serial.println("AT+CIPSEND=0,6\r\n");
             Serial.print("V:");
             Serial.println(showbattery);
-            //    delay(250);
             delay(10); // This delay is to guarantee there has been 10ms since last time we called millis(). This is required due to arduino hardware. A certain capacitor requires time to recharge.
-            showtime = millis(); // sets showtime to the amount of time, in milliseconds, the arduino has been running
+            uptime = millis(); // sets uptime to the amount of time, in milliseconds, the arduino has been running
         }
-        //  if(Serial.available()>0){
-        //    break;
-        //  }
     }
 }
 //This is the initialization angle of each leg, you can modify the following values according to your needs.
@@ -1767,7 +1763,7 @@ void attack() {
     }
 }
 
-char judgement() {
+char judgement(String &comdata) { // uses serial input to determine our next action
     char judge = 0;
     if (comdata.length() > 0)
     { if (comdata.endsWith(text1) || comdata.endsWith(phone1)) { //forward
@@ -1980,14 +1976,12 @@ void advoid() {
 
     long a = ultrasonic();
     if (a <= 20 && a > 0) {
-        while (right < 6) {
-            right++;
+        for (int i = 0; i < 6; i++){
             move_right_latest1();
             if (Serial.available() > 0) {
                 break;
             }
         }
-        right = 0;
     }
     //  battery();
 

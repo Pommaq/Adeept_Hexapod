@@ -35,7 +35,7 @@ void doWhatever();
 
 void attack();
 
-char judgement();
+char judgement(String &comdata);
 
 void advoid();
 
