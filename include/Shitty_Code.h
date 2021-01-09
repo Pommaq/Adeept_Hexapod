@@ -24,6 +24,9 @@ void move_left_latest1();
 
 void move_right_latest1();
 
+void set_servo_back(Servo& servo, int &position, double value);
+
+void set_servo_forw(Servo& servo, int &position, double value);
 
 void Stand_Up();
 

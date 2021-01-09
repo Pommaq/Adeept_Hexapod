@@ -383,35 +383,15 @@ void move_backward_latest1() {
     // TODO: This is stupid. Fix it.
 
     for (int i = 0; i <= 45; i++) {
-        s0.write(90 - i0H5);
-        i0H5++;
-        if (i0H5 == 46) {
-            i0H5 = 0;
-        }
-        //  s1.write(90);
-        //  delay(ACTIONSPEED);
-        //    delay(1);
+        set_servo_back(s0, i0H5, 90);
         s2.write(90);
-        //s3.write(22.5);
         delay(ACTIONSPEED);
-        s4.write(90 - i4H5);
-        i4H5++;
-        if (i4H5 == 46) {
-            i4H5 = 0;
-        }
-        //    delay(1);
-        //s5.write(120);
-        //delay(ACTIONSPEED);
+
+        set_servo_back(s4, i4H5, 90);
         s6.write(90);
-
-        //     s7.write(135);
         delay(ACTIONSPEED);
-        s8.write(90 + i8H5);
-        i8H5++;
-        if (i8H5 == 46) {
-            i8H5 = 0;
-        }
 
+        set_servo_forw(s8, i8H5, 90);
         s10.write(90);
         delay(ACTIONSPEED);
     }
@@ -420,195 +400,85 @@ void move_backward_latest1() {
 
     for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
-        s0.write(45 + i0H3);
-        i0H3++;
-        if (i0H3 == 46) {
-            i0H3 = 0;
-        }
-        s1.write(90 - i1H3);
-        i1H3++;
-        if (i1H3 == 46) {
-            i1H3 = 0;
-        }
-
-        //    delay(1);
+        set_servo_forw(s0, i0H3, 45);
+        set_servo_back(s1, i1H3, 90);
         delay(ACTIONSPEED);
 
-        // Rise the leg2
+        // Raise leg2
         s2.write(90);
-        s3.write(45 + i3H3); //45+i3H3
-        i3H3++;
-        if (i3H3 == 46) {
-            i3H3 = 0;
-        }
-
-        //  delay(1);
-
+        set_servo_forw(s3, i3H3, 45);
+        set_servo_forw(s3, i3H3, 45);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
-        s4.write(45 + i4H3);
-        i4H3++;
-        if (i4H3 == 46) {
-            i4H3 = 0;
-        }
-        s5.write(120 - i5H3); //165-i5H3
-        i5H3++;
-        if (i5H3 == 46) {
-            i5H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_forw(s4, i4H3, 45);
+        set_servo_back(s5, i5H3, 120);
         delay(ACTIONSPEED);
 
         // Rise the leg4
         s6.write(90);
-        s7.write(135 - i7H3);
-        i7H3++;
-        if (i7H3 == 46) {
-            i7H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_back(s7, i7H3, 135);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        s8.write(135 - i8H3);
-        i8H3++;
-        if (i8H3 == 46) {
-            i8H3 = 0;
-        }
-        s9.write(72.5 + i9H3); //50+i9H3
-        i9H3++;
-        if (i9H3 == 46) {
-            i9H3 = 0;
-        }
-
-        //    delay(1);
-
+        set_servo_back(s8, i8H3, 135);
+        set_servo_forw(s9, i9H3, 72.5);
         delay(ACTIONSPEED);
 
         // Rise the leg6
         s10.write(90);
-        s11.write(90 - i11H3); //45-i11H3
-        i11H3++;
-        if (i11H3 == 46) {
-            i11H3 = 0;
-        }
-
+        set_servo_back(s11, i11H3, 90);
         delay(ACTIONSPEED);
-
-
     }
 
     /*********rotate backward to the initial position and rotate forward**********/
 
     //PROCESS 4:
     for (int i = 0; i <= 45; i++) {
+        // TODO: Set this inside another loop.
         s0.write(90);
-        //  s1.write(45);
-        //  delay(ACTIONSPEED);
-        s2.write(90 - i2H4);
-        i2H4++;
-        if (i2H4 == 46) {
-            i2H4 = 0;
-        }
-
+        set_servo_back(s2, i2H4, 90);
         delay(ACTIONSPEED);
+
         s4.write(90);
-
-        s6.write(90 + i6H4);
-        i6H4++;
-        if (i6H4 == 46) {
-            i6H4 = 0;
-        }
-
+        set_servo_forw(s6, i6H4, 90);
         delay(ACTIONSPEED);
 
         s8.write(90);
-
-        s10.write(90 + i10H4);
-        i10H4++;
-        if (i10H4 == 46) {
-            i10H4 = 0;
-        }
+        set_servo_forw(s10,i10H4, 90);
         delay(ACTIONSPEED);
-
-
     }
 
     //PROCESS 1:
     for (int i = 0; i <= 45; i++) {
         // Raiseleg1
         s0.write(90);
-        s1.write(45 + i1H1);
-        i1H1++;
-        if (i1H1 == 46) {
-            i1H1 = 0;
-        }
-
+        set_servo_forw(s1, i1H1, 45);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
-        s2.write(45 + i2H1);
-        i2H1++;
-        if (i2H1 == 46) {
-            i2H1 = 0;
-        }
-        s3.write(90 - i3H1); //90-i3H1
-        i3H1++;
-        if (i3H1 == 46) {
-            i3H1 = 0;
-        }
-
+        set_servo_forw(s2, i2H1, 45);
+        set_servo_back(s3, i3H1, 90);
         delay(ACTIONSPEED);
 
         // Rise the leg3
         s4.write(90);
-        s5.write(75 + i5H1); //120+i5H1
-        i5H1++;
-        if (i5H1 == 46) {
-            i5H1 = 0;
-        }
-
+        set_servo_forw(s5, i5H1, 75);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        s6.write(135 - i6H1);
-        i6H1++;
-        if (i6H1 == 46) {
-            i6H1 = 0;
-        }
-        s7.write(90 + i7H1);
-        i7H1++;
-        if (i7H1 == 46) {
-            i7H1 = 0;
-        }
-
+        set_servo_back(s6, i6H1, 135);
+        set_servo_forw(s7, i7H1, 90);
         delay(ACTIONSPEED);
 
         // Raise leg5
         s8.write(90);
-        s9.write(117.5 - i9H1); //95-i9H1
-        i9H1++;
-        if (i9H1 == 46) {
-            i9H1 = 0;
-        }
-
+        set_servo_back(s9, i9H1, 117.5);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        s10.write(135 - i10H1);
-        i10H1++;
-        if (i10H1 == 46) {
-            i10H1 = 0;
-        }
-        s11.write(45 + i11H1); //0+i11H1
-        i11H1++;
-        if (i11H1 == 46) {
-            i11H1 = 0;
-        }
-
+        set_servo_back(s10, i10H1, 135);
+        set_servo_forw(s11, i11H1, 45);
         delay(ACTIONSPEED);
     }
 }
@@ -620,32 +490,19 @@ void move_forward_latest1() {
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++) {
         s0.write(90);
-        s2.write(90 - i2H4); //100-i2H4
-        i2H4++;
-        if (i2H4 == 46 ) {
-            i2H4 = 0;
-        }
+        set_servo_back(s2, i2H4, 90);
         delay(ACTIONSPEED);
+
         s4.write(90);
         //delay(ACTIONSPEED);
-        s6.write(90 + i6H4); //90+i6H4
-        i6H4++;
-        if (i6H4 == 46) {
-            i6H4 = 0;
-        }
-
+        set_servo_forw(s6, i6H4, 90);
         delay(ACTIONSPEED); // Why is this here?
 
         s8.write(90);
-
-        s10.write(90 + i10H4); //90+i10H4
-        i10H4++;
-        if (i10H4 == 46) {
-            i10H4 = 0;
-        }
+        set_servo_forw(s10, i10H4, 90);
         delay(ACTIONSPEED);
 
-    }// End while loop. status4 > 45
+    }
 
     //PROCESS 3:
     /*(rorate second leg forward move second leg back to the ground) and
@@ -653,72 +510,31 @@ void move_forward_latest1() {
     for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
         s0.write(90);//90
-        s1.write(90 - i1H3);
-        i1H3++;
-        if (i1H3 == 46) {
-            i1H3 = 0;
-        }
-
+        set_servo_back(s1, i1H3, 90);
         delay(ACTIONSPEED);
 
         // Raise leg2
-        s2.write(45 + i2H3);
-        i2H3++;
-        if (i2H3 == 46) {
-            i2H3 = 0;
-        }
-        s3.write(45 + i3H3); //45+i3H3
-        i3H3++;
-        if (i3H3 == 46) {
-            i3H3 = 0;
-        }
-
+        set_servo_forw(s2, i2H3, 45);
+        set_servo_forw(s3, i3H3, 45);
         delay(ACTIONSPEED);
+
         // Move back to touch the ground3
         s4.write(90);  //90
-        s5.write(120 - i5H3);                            //165-i5H3
-        i5H3++;
-        if (i5H3 == 46) {
-            i5H3 = 0;
-        }
-
+        set_servo_back(s5, i5H3, 120);
         delay(ACTIONSPEED);
         // Rise the leg4
-        s6.write(135 - i6H3);
-        i6H3++;
-        if (i6H3 == 46) {
-            i6H3 = 0;
-        }
-        s7.write(135 - i7H3);
-        i7H3++;
-        if (i7H3 == 46) {
-            i7H3 = 0;
-        }
-
+        set_servo_back(s6, i6H3, 135);
+        set_servo_back(s7, i7H3, 135);
         delay(ACTIONSPEED);
+
         // Move back to touch the ground5
         s8.write(90);  //90
-        s9.write(72.5 + i9H3); //50+i9H3
-        i9H3++;
-        if (i9H3 == 46) {
-            i9H3 = 0;
-        }
-
+        set_servo_forw(s9, i9H3, 72.5);
         delay(ACTIONSPEED);
 
         // Raise leg6
-        s10.write(135 - i10H3);
-        i10H3++;
-        if (i10H3 == 46) {
-            i10H3 = 0;
-        }
-        s11.write(90 - i11H3);                                        //45-i11H3
-        i11H3++;
-        if (i11H3 == 46) {
-            i11H3 = 0;
-        }
-
-
+        set_servo_back(s10, i10H3, 135);
+        set_servo_back(s11, i11H3, 90);
         delay(ACTIONSPEED);
 
     }
@@ -727,32 +543,15 @@ void move_forward_latest1() {
 
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++){
-        s0.write(90 - i0H5); //90-i0H5
-        i0H5++;
-        if (i0H5 == 46) {
-            i0H5 = 0;
-        }
-
+        set_servo_back(s0, i0H5, 90);
         s2.write(90);
-        //s3.write(67.5);
         delay(ACTIONSPEED);
-        s4.write(90 - i4H5); //90-i4H5
-        i4H5++;
-        if (i4H5 == 46) {
-            i4H5 = 0;
-        }
+
+        set_servo_back(s4, i4H5, 90);
         s6.write(90);
-
-        //  s7.write(90);
         delay(ACTIONSPEED);
-        s8.write(90 + i8H5); //90+i8H5
-        i8H5++;
-        if (i8H5 == 46) {
-            i8H5 = 0;
-        }
-
+        set_servo_forw(s8, i8H5, 90);
         s10.write(90);
-        //s11.write(45);
         delay(ACTIONSPEED);
 
     }
@@ -762,79 +561,33 @@ void move_forward_latest1() {
       (rorate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Rise the leg1
-        s0.write(45 + i0H1);
-        i0H1++;
-        if (i0H1 == 46) {
-            i0H1 = 0;
-        }
-        s1.write(45 + i1H1);
-        i1H1++;
-        if (i1H1 == 46) {
-            i1H1 = 0;
-        }
+        set_servo_forw(s0, i0H1, 45);
+        set_servo_forw(s1, i1H1, 45);
 
-        //delay(1);
         delay(ACTIONSPEED);
         // Move back to touch the ground2
         s2.write(90);
-        s3.write(90 - i3H1); //90-i3H1
-        i3H1++;
-        if (i3H1 == 46) {
-            i3H1 = 0;
-        }
-
-        //delay(1);
+        set_servo_back(s3, i3H1, 90);
         delay(ACTIONSPEED);
-        // Rise the leg3
-        s4.write(45 + i4H1);
-        i4H1++;
-        if (i4H1 == 46) {
-            i4H1 = 0;
-        }
-        s5.write(75 + i5H1); //120+i5H1
-        i5H1++;
-        if (i5H1 == 46) {
-            i5H1 = 0;
-        }
-
-        //delay(1);
+        // Raise leg3
+        set_servo_forw(s4, i4H1, 45);
+        set_servo_forw(s5, i5H1, 75);
         delay(ACTIONSPEED);
+
         // Move back to touch the ground4
         s6.write(90);
-        s7.write(90 + i7H1);
-        i7H1++;
-        if (i7H1 == 46) {
-            i7H1 = 0;
-        }
-
-        //delay(1);
+        set_servo_forw(s7, i7H1, 90);
         delay(ACTIONSPEED);
-        // Rise the leg5
-        s8.write(135 - i8H1);
-        i8H1++;
-        if (i8H1 == 46) {
-            i8H1 = 0;
-        }
-        s9.write(117.5 - i9H1); //95-i9H1
-        i9H1++;
-        if (i9H1 == 46) {
-            i9H1 = 0;
-        }
 
-        //delay(1);
+        // Raise leg5
+        set_servo_back(s8, i8H1, 135);
+        set_servo_back(s9, i9H1, 117.5);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         s10.write(90);
-        s11.write(45 + i11H1); //0+i11H1
-        i11H1++;
-        if (i11H1 == 46) {
-            i11H1 = 0;
-        }
-
-        //delay(1);
+        set_servo_forw(s11, i11H1, 45);
         delay(ACTIONSPEED);
-
     }
 }
 
@@ -844,37 +597,16 @@ void move_left_latest1() {
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++){
         s0.write(90);
-        //  s1.write(45);
-        //  delay(ACTIONSPEED);
-        s2.write(90 - i2H4);
-        i2H4++;
-        if (i2H4 == 46) {
-            i2H4 = 0;
-        }
-        //  s3.write(67.5);
-        //  delay(1);
+        set_servo_back(s2, i2H4, 90);
         delay(ACTIONSPEED);
+
         s4.write(90);
-        //s5.write(75);
-        //delay(ACTIONSPEED);
-        s6.write(90 + i6H4);
-        i6H4++;
-        if (i6H4 == 46) {
-            i6H4 = 0;
-        }
-        //  s7.write(135);
-        //  delay(1);
+        set_servo_forw(s6, i6H4, 90);
+
         delay(ACTIONSPEED);
+
         s8.write(90);
-        //s9.write(72.5);
-        //delay(ACTIONSPEED);
-        s10.write(90 + i10H4);
-        i10H4++;
-        if (i10H4 == 46) {
-            i10H4 = 0;
-        }
-        //  delay(1);
-        //s11.write(90);
+        set_servo_forw(s10, i10H4, 90);
         delay(ACTIONSPEED);
     }
 
@@ -884,74 +616,32 @@ void move_left_latest1() {
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         s0.write(90);
-        s1.write(45 + i1H3);
-        i1H3++;
-        if (i1H3 == 46) {
-            i1H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_forw(s1, i1H3, 45);
         delay(ACTIONSPEED);
-        // Rise the leg2
-        s2.write(45 + i2H3);
-        i2H3++;
-        if (i2H3 == 46) {
-            i2H3 = 0;
-        }
-        s3.write(90 - i3H3); //90-i3H3
-        i3H3++;
-        if (i3H3 == 46) {
-            i3H3 = 0;
-        }
+
+        // Raise leg2
+        set_servo_forw(s2, i2H3, 45);
+        set_servo_back(s3, i3H3, 90);
         delay(ACTIONSPEED);
         //  delay(1);
 
         // Move back to touch the ground3
         s4.write(90);
-        s5.write(75 + i5H3); //120+i5H3
-        i5H3++;
-        if (i5H3 == 46) {
-            i5H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_forw(s5,i5H3, 75);
         delay(ACTIONSPEED);
         // Rise the leg4
-
-        s6.write(135 - i6H3);
-        i6H3++;
-        if (i6H3 == 46) {
-            i6H3 = 0;
-        }
-        s7.write(135 - i7H3);
-        i7H3++;
-        if (i7H3 == 46) {
-            i7H3 = 0;
-        }
-        //  delay(1);
+        set_servo_back(s6, i6H3, 135);
+        set_servo_back(s7, i7H3, 135);
         delay(ACTIONSPEED);
+
         // Move back to touch the ground5
         s8.write(90);
-        s9.write(72.5 + i9H3); //50+i9H3
-        i9H3++;
-        if (i9H3 == 46) {
-            i9H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_forw(s9, i9H3, 72.5);
         delay(ACTIONSPEED);
 
-        // Rise the leg6
-        s10.write(135 - i10H3);
-        i10H3++;
-        if (i10H3 == 46) {
-            i10H3 = 0;
-        }
-        s11.write(90 - i11H3); //45-i11H3
-        i11H3++;
-        if (i11H3 == 46) {
-            i11H3 = 0;
-        }
+        // Raise leg6
+        set_servo_back(s10, i10H3, 135);
+        set_servo_back(s11, i11H3, 90);
         delay(ACTIONSPEED);
     }
 
@@ -960,40 +650,16 @@ void move_left_latest1() {
 
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++) {
-        s0.write(90 - i0H5);
-        i0H5++;
-        if (i0H5 == 46) {
-            i0H5 = 0;
-        }
-        //  s1.write(90);
-        //  delay(ACTIONSPEED);
-        //  delay(1);
+        set_servo_back(s0, i0H5, 90);
         s2.write(90);
-
-        //  s3.write(22.5);
         delay(ACTIONSPEED);
-        s4.write(90 - i4H5);
-        i4H5++;
-        if (i4H5 == 46) {
-            i4H5 = 0;
-        }
-        //  delay(1);
-        //s5.write(120);
-        //delay(ACTIONSPEED);
+
+        set_servo_back(s4, i4H5, 90);
         s6.write(90);
-
-        //  s7.write(90);
         delay(ACTIONSPEED);
-        s8.write(90 + i8H5);
-        i8H5++;
-        if (i8H5 == 46) {
-            i8H5 = 0;
-        }
-        //  delay(1);
-        //s9.write(117.5);
-        //delay(ACTIONSPEED);
+
+        set_servo_forw(s8, i8H5, 90);
         s10.write(90);
-        //s11.write(45);
         delay(ACTIONSPEED);
     }
 
@@ -1003,75 +669,33 @@ void move_left_latest1() {
       (torate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Rise the leg1
-        s0.write(45 + i0H1);
-        i0H1++;
-        if (i0H1 == 46) {
-            i0H1 = 0;
-        }
-        s1.write(90 - i1H1);
-        i1H1++;
-        if (i1H1 == 46) {
-            i1H1 = 0;
-        }
+        set_servo_forw(s0, i0H1, 45);
+        set_servo_back(s1, i1H1, 90);
         delay(ACTIONSPEED);
-        //  delay(1);
 
         // Move back to touch the ground2
         s2.write(90);
-        s3.write(45 + i3H1); //45+i3H1
-        i3H1++;
-        if (i3H1 == 46) {
-            i3H1 = 0;
-        }
+        set_servo_forw(s3, i3H1, 45);
         delay(ACTIONSPEED);
-        //  delay(1);
 
-        // Rise the leg3
-        s4.write(45 + i4H1);
-        i4H1++;
-        if (i4H1 == 46) {
-            i4H1 = 0;
-        }
-        s5.write(120 - i5H1); //165-i5H1
-        i5H1++;
-        if (i5H1 == 46) {
-            i5H1 = 0;
-        }
+        // Raise leg3
+        set_servo_forw(s4, i4H1, 45);
+        set_servo_back(s5, i5H1, 120);
         delay(ACTIONSPEED);
-        //  delay(1);
 
         // Move back to touch the ground4
         s6.write(90);
-        s7.write(90 + i7H1);
-        i7H1++;
-        if (i7H1 == 46) {
-            i7H1 = 0;
-        }
+        set_servo_forw(s7, i7H1, 90);
         delay(ACTIONSPEED);
-        //  delay(1);
 
         // Rise the leg5
-        s8.write(135 - i8H1);
-        i8H1++;
-        if (i8H1 == 46) {
-            i8H1 = 0;
-        }
-        s9.write(117.5 - i9H1); //95-i9H1
-        i9H1++;
-        if (i9H1 == 46) {
-            i9H1 = 0;
-        }
-
-        //  delay(1);
+        set_servo_back(s8, i8H1, 135);
+        set_servo_back(s9, i9H1, 117.5);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         s10.write(90);
-        s11.write(45 + i11H1); //0+i11H1
-        i11H1++;
-        if (i11H1 == 46) {
-            i11H1 = 0;
-        }
+        set_servo_forw(s11, i11H1, 45);
         delay(ACTIONSPEED);
     }
 }
@@ -1082,42 +706,19 @@ void move_right_latest1() {
     // TODO: Fix this.
 
     //PROCESS 4:(raise the second leg)
-    for (int i = 0; i <= 45; i++) {
-        s0.write(90);
-        //  s1.write(90);
-        //  delay(ACTIONSPEED);
-        s2.write(90 - i2H4);
-        i2H4++;
-        if (i2H4 == 46) {
-            i2H4 = 0;
-        }
-        //  delay(1);
-        //s3.write(22.5);
-        delay(ACTIONSPEED);
-        s4.write(90);
 
-        //s5.write(120);
-        //delay(ACTIONSPEED);
-        s6.write(90 + i6H4);
-        i6H4++;
-        if (i6H4 == 46) {
-            i6H4 = 0;
-        }
-        //  delay(1);
-        //s7.write(90);
+    for (int i = 0; i <= 45; i++) {
+        // TODO: Set this inside another loop.
+        s0.write(90);
+        set_servo_back(s2, i2H4, 90);
+        delay(ACTIONSPEED);
+
+        s4.write(90);
+        set_servo_forw(s6, i6H4, 90);
         delay(ACTIONSPEED);
 
         s8.write(90);
-        //s9.write(117.5);
-        //delay(ACTIONSPEED);
-
-        s10.write(90 + i10H4);
-        i10H4++;
-        if (i10H4 == 46) {
-            i10H4 = 0;
-        }
-        //  delay(1);
-        //s11.write(45);
+        set_servo_forw(s10, i10H4, 90);
         delay(ACTIONSPEED);
     }
 
@@ -1127,74 +728,32 @@ void move_right_latest1() {
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         s0.write(90);
-        s1.write(90 - i1H3);
-        i1H3++;
-        if (i1H3 == 46) {
-            i1H3 = 0;
-        }
+        set_servo_back(s1, i1H3, 90);
+        delay(ACTIONSPEED);
 
-        //  delay(1);
+        // Raise leg2
+        set_servo_forw(s2, i2H3, 45);
+        set_servo_forw(s3, i3H3, 45);
         delay(ACTIONSPEED);
-        // Rise the leg2
-        s2.write(45 + i2H3);
-        i2H3++;
-        if (i2H3 == 46) {
-            i2H3 = 0;
-        }
-        s3.write(45 + i3H3); //45+i3H3
-        i3H3++;
-        if (i3H3 == 46) {
-            i3H3 = 0;
-        }
-        delay(ACTIONSPEED);
-        //  delay(1);
 
         // Move back to touch the ground3
         s4.write(90);
-        s5.write(120 - i5H3); //165-i5H3
-        i5H3++;
-        if (i5H3 == 46) {
-            i5H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_back(s5, i5H3, 120);
         delay(ACTIONSPEED);
-        // Rise the leg4
 
-        s6.write(135 - i6H3);
-        i6H3++;
-        if (i6H3 == 46) {
-            i6H3 = 0;
-        }
-        s7.write(90 + i7H3);
-        i7H3++;
-        if (i7H3 == 46) {
-            i7H3 = 0;
-        }
+        // Raise leg4
+        set_servo_back(s6, i6H3, 135);
+        set_servo_forw(s7, i7H3, 90);
         delay(ACTIONSPEED);
-        //  delay(1);
+
         // Move back to touch the ground5
         s8.write(90);
-        s9.write(117.5 - i9H3); //95-i9H3
-        i9H3++;
-        if (i9H3 == 46) {
-            i9H3 = 0;
-        }
-
-        //  delay(1);
+        set_servo_back(s9, i9H3, 117.5);
         delay(ACTIONSPEED);
 
-        // Rise the leg6
-        s10.write(135 - i10H3);
-        i10H3++;
-        if (i10H3 == 46) {
-            i10H3 = 0;
-        }
-        s11.write(45 + i11H3); //0+i11H3
-        i11H3++;
-        if (i11H3 == 46) {
-            i11H3 = 0;
-        }
+        // Raise leg6
+        set_servo_back(s10, i10H3, 135);
+        set_servo_forw(s11, i11H3, 45);
         delay(ACTIONSPEED);
     }
 
@@ -1203,40 +762,17 @@ void move_right_latest1() {
 
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++) {
-        s0.write(90 - i0H5);
-
-        i0H5++;
-        if (i0H5 == 46) {
-            i0H5 = 0;
-        }
-        //  s1.write(45);
-        //  delay(ACTIONSPEED);
+        // TODO: Get this inside another loop.
+        set_servo_back(s0, i0H5, 90);
         s2.write(90);
-        //  s3.write(67.5);
-        //  delay(1);
         delay(ACTIONSPEED);
-        s4.write(90 - i4H5);
-        i4H5++;
-        if (i4H5 == 46) {
-            i4H5 = 0;
-        }
-        //  delay(1);
-        //s5.write(75);
-        //delay(ACTIONSPEED);
-        s6.write(90);
 
-        //  s7.write(135);
+        set_servo_back(s4, i4H5, 90);
+        s6.write(90);
         delay(ACTIONSPEED);
-        s8.write(90 + i8H5);
-        i8H5++;
-        if (i8H5 == 46) {
-            i8H5 = 0;
-        }
-        //    s9.write(72.5);
-        //    delay(ACTIONSPEED);
+
+        set_servo_forw(s8, i8H5, 90);
         s10.write(90);
-        //  delay(1);
-        //s11.write(90);
         delay(ACTIONSPEED);
     }
 
@@ -1245,74 +781,33 @@ void move_right_latest1() {
       (torate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Rise the leg1
-        s0.write(45 + i0H1);
-        i0H1++;
-        if (i0H1 == 46) {
-            i0H1 = 0;
-        }
-        s1.write(45 + i1H1);
-        i1H1++;
-        if (i1H1 == 46) {
-            i1H1 = 0;
-        }
+        set_servo_forw(s0, i0H1, 45);
+        set_servo_forw(s1, i1H1, 45);
         delay(ACTIONSPEED);
-        //  delay(1);
 
         // Move back to touch the ground2
         s2.write(90);
-        s3.write(90 - i3H1); //90-i3H1
-        i3H1++;
-        if (i3H1 == 46) {
-            i3H1 = 0;
-        }
+        set_servo_back(s3, i3H1, 90);
         delay(ACTIONSPEED);
-        //  delay(1);
 
-        // Rise the leg3
-        s4.write(45 + i4H1);
-        i4H1++;
-        if (i4H1 == 46) {
-            i4H1 = 0;
-        }
-        s5.write(75 + i5H1); //120+i5H1
-        i5H1++;
-        if (i5H1 == 46) {
-            i5H1 = 0;
-        }
+        // Raise leg3
+        set_servo_forw(s4, i4H1, 45);
+        set_servo_forw(s5, i5H1, 75);
         delay(ACTIONSPEED);
-        //  delay(1);
 
         // Move back to touch the ground4
         s6.write(90);
-        s7.write(135 - i7H1);
-        i7H1++;
-        if (i7H1 == 46) {
-            i7H1 = 0;
-        }
+        set_servo_back(s7, i7H1, 135);
         delay(ACTIONSPEED);
-        //  delay(1);
 
-        // Rise the leg5
-        s9.write(72.5 + i9H1); //50+i9H1
-        i9H1++;
-        if (i9H1 == 46) {
-            i9H1 = 0;
-        }
-        s8.write(135 - i8H1);
-        i8H1++;
-        if (i8H1 == 46) {
-            i8H1 = 0;
-        }
-        //  delay(1);
+        // Raise leg5
+        set_servo_forw(s9, i9H1, 72.5);
+        set_servo_back(s8, i8H1, 135);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         s10.write(90);
-        s11.write(90 - i11H1); //45-i11H1
-        i11H1++;
-        if (i11H1 == 46) {
-            i11H1 = 0;
-        }
+        set_servo_back(s11, i11H1, 90);
         delay(ACTIONSPEED);
     }
     /**********rotate forward and rotate backward to the initial position**********/
@@ -1554,7 +1049,7 @@ void set_servo_back(Servo& servo, int &position, double value){
     position = position % 46;
 }
 
-void set_servo_forw(Servo& servo, int &position, double number){
+void set_servo_forw(Servo& servo, int &position, double value){
     servo.write(135 + position);
     position++;
     position = position % 46;
