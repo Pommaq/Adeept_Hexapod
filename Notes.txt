@@ -1,0 +1,2 @@
+iXH3 appears to be a location counter for how high up the legs are.
+iXH5 appears to be a location counter used in leg rotation.

@@ -1616,18 +1616,16 @@ void ultrasonic() {
     //  Serial.println("cm");
 }
 
-void take_a_step(Servo& servo, int &position, int pos){
-    servo.write(pos - position);
+void take_a_step(Servo& servo, int &position, double value){
+    servo.write(value - position);
     position++;
     position = position % 46;
-    delay(actionspeed);
 }
 
-void take_a_step_pl(Servo& servo, int &position, int pos){
+void take_a_step_pl(Servo& servo, int &position, double number){
     servo.write(135 + position);
     position++;
     position = position % 46;
-    delay(actionspeed);
 }
 
 void step_by_step() {
@@ -1637,13 +1635,20 @@ void step_by_step() {
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 7; k++){
             take_a_step(*(servos_loop1[k]), *(counters_loop1[k]), 135);
+            delay(actionspeed);
         }
         take_a_step(s1,i1H0, 45);
+        delay(actionspeed);
         take_a_step(s3, i3H0, 45);
+        delay(actionspeed);
         take_a_step(s5, i5H0, 120);
+        delay(actionspeed);
         take_a_step_pl(s7, i7H0, 135);
+        delay(actionspeed);
         take_a_step_pl(s9, i9H0, 95);
+        delay(actionspeed);
         take_a_step_pl(s11, i11H0, 45);
+        delay(actionspeed);
 
         if (Serial.available() > 0) {
             break;
@@ -1656,13 +1661,20 @@ void step_by_step() {
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 6; k++){
             take_a_step(*(Servos_loop2[k]), *(counters_loop2[k]), 90);
+            delay(actionspeed);
         }
         take_a_step_pl(s1, i1H0, 0);
+        delay(actionspeed);
         take_a_step_pl(s3, i3H0, 0);
+        delay(actionspeed);
         take_a_step_pl(s5, i5H0, 75);
+        delay(actionspeed);
         take_a_step(s7, i7H0, 180);
+        delay(actionspeed);
         take_a_step(s9, i9H0, 135);
+        delay(actionspeed);
         take_a_step(s11, i11H0, 90);
+        delay(actionspeed);
 
         if (Serial.available() > 0) {
             break;
@@ -1674,11 +1686,16 @@ void step_by_step() {
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 8; k++){
             take_a_step_pl(*(Servos_loop3)[k], *(counters_loop3[k]), 45);
+            delay(actionspeed);
         }
         take_a_step_pl(s5, i5H0, 120);
+        delay(actionspeed);
         take_a_step(s7, i7H0, 135);
+        delay(actionspeed);
         take_a_step(s9, i9H0, 95);
+        delay(actionspeed);
         take_a_step(s11, i11H0, 45);
+        delay(actionspeed);
 
         if (Serial.available() > 0) {
             break;
@@ -1691,13 +1708,20 @@ void step_by_step() {
         for (int k = 0; k < 6; k++){
             // +90
             take_a_step_pl(*(Servos_loop4[k]), *(counters_loop4[k]), 90);
+            delay(actionspeed);
         }
         take_a_step(s1, i1H0, 90);
+        delay(actionspeed);
         take_a_step(s3, i3H0, 90);
+        delay(actionspeed);
         take_a_step(s5, i5H0, 165);
+        delay(actionspeed);
         take_a_step_pl(s7, i7H0, 90);
+        delay(actionspeed);
         take_a_step_pl(s9, i9H0, 50);
+        delay(actionspeed);
         take_a_step_pl(s11, i11H0, 0);
+        delay(actionspeed);
 
         if (Serial.available() > 0) {
             break;
@@ -1709,9 +1733,9 @@ void step_by_step() {
 }
 
 void doWhatever(int val1, int& val2, bool add){
-    while (status4 <= 30){
+    // What is this for?
+    for (int i = 0; i <= 30; i++){
         delay(10);
-        status4++;
         if (add){
             s12.write(val1 + val2);
         }
@@ -1726,7 +1750,6 @@ void doWhatever(int val1, int& val2, bool add){
             break;
         }
     }
-    status4 = 0;
 }
 
 
@@ -1768,7 +1791,6 @@ char judgement() {
     if (comdata.length() > 0)
     { if (comdata.endsWith(text1) || comdata.endsWith(phone1)) { //forward
             judge = 1;
-
         }
         if (comdata.endsWith(text2) || comdata.endsWith(phone2)) { //backward
             judge = 2;
@@ -1817,48 +1839,19 @@ void advoid() {
     //  char R=random(0,255);
 
     //PROCESS 4:(raise the second leg)
-    while (status4 <= 45) {
-        status4++;
+    for (int i = 0; i <= 45; i++){
         s0.write(90);
-        //  s1.write(90);
-        //  delay(actionspeed);
-        s2.write(100 - i2H4); //100-i2H4
-        i2H4++;
-        if (i2H4 == 46 ) {
-            i2H4 = 0;
-        }
-        //  s3.write(22.5);
+        take_a_step(s2, i2H4, 100);
         delay(actionspeed);
         s4.write(90);
-        //s5.write(120);
-        //delay(actionspeed);
-        s6.write(90 + i6H4); //90+i6H4
-        i6H4++;
-        if (i6H4 == 46) {
-            i6H4 = 0;
-        }
-        //  s7.write(135);
-        //delay(1);
+        take_a_step_pl(s6, i6H4, 90);
         delay(actionspeed);
-
         s8.write(90);
-        //s9.write(72.5);
-        //delay(actionspeed);
-        s10.write(90 + i10H4); //90+i10H4
-        i10H4++;
-        if (i10H4 == 46) {
-            i10H4 = 0;
-        }
-        //  s11.write(90);
-        //delay(1);
+        take_a_step_pl(s10, i10H4, 90);
         delay(actionspeed);
         s12.write(90 + i12H4);
 
-        //  i12H4++;
-        //  if(i12H4==46){
-        //    i12H4=0;
-        //  }
-        if (i12H4 <= 20) {
+        if (i12H4 <= 20) { // TODO: Figure out why this is here
             i12H4++;
         }
         else {
@@ -1868,96 +1861,44 @@ void advoid() {
         if (Serial.available() > 0) {
             break;
         }
-        //  delay(actionspeed);
     }
-    status4 = 0;
     i12H4 = 0;
-    //  char G=random(0,255);
+
 
     //PROCESS 3:
     /*(rorate second leg forward move second leg back to the ground) and
       (torate first leg backward)*/
-    while (status3 <= 45) {
-        status3++;
+    for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         s0.write(90);//90
-        s1.write(90 - i1H3);
-        i1H3++;
-        if (i1H3 == 46) {
-            i1H3 = 0;
-        }
-
-        // delay(1);
+        take_a_step(s1, i1H3, 90);
         delay(actionspeed);
         // Rise the leg2
-        s2.write(45 + i2H3);
-        i2H3++;
-        if (i2H3 == 46) {
-            i2H3 = 0;
-        }
-        s3.write(22.5 + i3H3); //45+i3H3
-        i3H3++;
-        if (i3H3 == 46) {
-            i3H3 = 0;
-        }
-
-        // delay(1);
+        take_a_step_pl(s2, i2H3, 45);
+        take_a_step_pl(s3, i3H3, 22.5);
         delay(actionspeed);
+
         // Move back to touch the ground3
         s4.write(90);  //90
-        s5.write(120 - i5H3);                            //165-i5H3
-        i5H3++;
-        if (i5H3 == 46) {
-            i5H3 = 0;
-        }
-
-        //delay(1);
+        take_a_step(s5, i5H3, 120);
         delay(actionspeed);
-        // Rise the leg4
-        s6.write(135 - i6H3);
-        i6H3++;
-        if (i6H3 == 46) {
-            i6H3 = 0;
-        }
-        s7.write(135 - i7H3);
-        i7H3++;
-        if (i7H3 == 46) {
-            i7H3 = 0;
-        }
 
-        //delay(1);
+        // Raise leg4
+        take_a_step(s6, i6H3, 135);
+        take_a_step(s7, i7H3, 135);
         delay(actionspeed);
+
         // Move back to touch the ground5
         s8.write(90);  //90
-        s9.write(72.5 + i9H3); //50+i9H3
-        i9H3++;
-        if (i9H3 == 46) {
-            i9H3 = 0;
-        }
-
-        //delay(1);
+        take_a_step_pl(s9, i9H3, 72.5);
         delay(actionspeed);
 
-        // Rise the leg6
-        s10.write(135 - i10H3);
-        i10H3++;
-        if (i10H3 == 46) {
-            i10H3 = 0;
-        }
-        s11.write(90 - i11H3);                                        //45-i11H3
-        i11H3++;
-        if (i11H3 == 46) {
-            i11H3 = 0;
-        }
-
-        //delay(1);
+        // Raise leg6
+        take_a_step(s10, i10H3, 135);
+        take_a_step(s11, i11H3, 90);
         delay(actionspeed);
         s12.write(110 - i12H3);
 
-        //  i12H3++;
-        //  if(i12H3==46){
-        //    i12H3=0;
-        //  }
         if (i12H3 <= 20) {
             i12H3++;
         }
@@ -1970,48 +1911,23 @@ void advoid() {
         }
         //  delay(actionspeed);
     }
-    status3 = 0;
     i12H3 = 0;
-    //char B=random(0,255);
     /*********rotate backward to the initial position and rotate forward**********/
 
     //PROCESS 5:(raise the first leg)
-    while (status5 <= 45) {
-        status5++;
-        s0.write(90 - i0H5); //90-i0H5
-        i0H5++;
-        if (i0H5 == 46) {
-            i0H5 = 0;
-        }
-        //  s1.write(45);
-        //  delay(actionspeed);
-        //delay(1);
+    for (int i = 0; i <= 45; i++) {
+        take_a_step(s0, i0H5, 90);
         s2.write(90);
-        //s3.write(67.5);
         delay(actionspeed);
-        s4.write(90 - i4H5); //90-i4H5
-        i4H5++;
-        if (i4H5 == 46) {
-            i4H5 = 0;
-        }
-        //delay(1);
-        //s5.write(75);
-        //delay(actionspeed);
-        s6.write(90);
 
-        //  s7.write(90);
+        take_a_step(s4, i4H5, 90);
+        s6.write(90);
         delay(actionspeed);
-        s8.write(90 + i8H5); //90+i8H5
-        i8H5++;
-        if (i8H5 == 46) {
-            i8H5 = 0;
-        }
-        //delay(1);
-        //s9.write(117.5);
-        //delay(actionspeed);
+
+        take_a_step_pl(s8, i8H5, 90);
         s10.write(90);
-        //s11.write(45);
         delay(actionspeed);
+
         s12.write(90 - i12H5);
 
         if (i12H5 <= 20) {
@@ -2026,7 +1942,6 @@ void advoid() {
         }
         //  delay(actionspeed);
     }
-    status5 = 0;
     i12H5 = 0;
 
     for (int i = 0; i < 6; i++) {
@@ -2037,86 +1952,38 @@ void advoid() {
     //PROCESS 1:
     /*(rorate first leg forward move first leg back to the ground) and
       (rorate second leg backward)*/
-    while (status1 <= 45) {
-        status1++;
-        // Rise the leg1
-        s0.write(45 + i0H1);
-        i0H1++;
-        if (i0H1 == 46) {
-            i0H1 = 0;
-        }
-        s1.write(45 + i1H1);
-        i1H1++;
-        if (i1H1 == 46) {
-            i1H1 = 0;
-        }
-
-        //delay(1);
+    for (int i = 0; i <= 45; i++){
+        // Raise leg1
+        take_a_step_pl(s0, i0H1, 45);
+        take_a_step_pl(s1, i1H1, 45);
         delay(actionspeed);
         // Move back to touch the ground2
         s2.write(90);
-        s3.write(67.5 - i3H1); //90-i3H1
-        i3H1++;
-        if (i3H1 == 46) {
-            i3H1 = 0;
-        }
-
-        //delay(1);
+        take_a_step(s3, i3H1, 67.5);
         delay(actionspeed);
-        // Rise the leg3
-        s4.write(45 + i4H1);
-        i4H1++;
-        if (i4H1 == 46) {
-            i4H1 = 0;
-        }
-        s5.write(75 + i5H1); //120+i5H1
-        i5H1++;
-        if (i5H1 == 46) {
-            i5H1 = 0;
-        }
 
-        //delay(1);
+        // Raise leg3
+        take_a_step_pl(s4, i4H1, 45);
+        take_a_step_pl(s5, i5H1, 75);
         delay(actionspeed);
+
         // Move back to touch the ground4
         s6.write(90);
-        s7.write(90 + i7H1);
-        i7H1++;
-        if (i7H1 == 46) {
-            i7H1 = 0;
-        }
-
-        //delay(1);
+        take_a_step_pl(s7, i7H1, 90);
         delay(actionspeed);
-        // Rise the leg5
-        s8.write(135 - i8H1);
-        i8H1++;
-        if (i8H1 == 46) {
-            i8H1 = 0;
-        }
-        s9.write(117.5 - i9H1); //95-i9H1
-        i9H1++;
-        if (i9H1 == 46) {
-            i9H1 = 0;
-        }
 
-        //delay(1);
+        // Rise the leg5
+        take_a_step(s8, i8H1, 135);
+        take_a_step(s9, i9H1, 117.5);
         delay(actionspeed);
 
         // Move back to touch the ground6
         s10.write(90);
-        s11.write(45 + i11H1); //0+i11H1
-        i11H1++;
-        if (i11H1 == 46) {
-            i11H1 = 0;
-        }
-
-        //delay(1);
+        take_a_step_pl(s11, i11H1, 45);
         delay(actionspeed);
+
         s12.write(70 + i12H1);
-        //  i12H1++;
-        //  if(i12H1==46){
-        //    i12H1=0;
-        //  }
+
         if (i12H1 <= 20) {
             i12H1++;
         }
@@ -2127,9 +1994,7 @@ void advoid() {
         if (Serial.available() > 0) {
             break;
         }
-        //  delay(actionspeed);
     }
-    status1 = 0;
     i12H1 = 0;
 
     ultrasonic();
