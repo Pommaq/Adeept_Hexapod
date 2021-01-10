@@ -18,8 +18,8 @@ class leg{
         //Servo l2.s1; // Used later once I figure out what servo goes where
         int b_counter = 0; // two counters for now until I know its safe for them to be 1
         int f_counter = 0;
-        void Step_fw(int val);
-        void Step_bw(int val);
+        void Step_fw(double val, int modulo = 46);
+        void Step_bw(double val, int modulo = 46);
 
 };
 

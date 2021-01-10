@@ -65,74 +65,6 @@ leg l9;
 leg l10;
 leg l11;
 leg l12;
-/*
-Servo l0.s1;
-Servo l1.s1;
-Servo l2.s1;
-Servo l3.s1;
-Servo l4.s1;
-Servo l5.s1;
-Servo l6.s1;
-Servo l7.s1;
-Servo l8.s1;
-Servo l9.s1;
-Servo l10.s1;
-Servo l11.s1;
-Servo l12.s1;
-*/
-
-// These oddly named integers appears to store the current "location" of each servo.
-int i0H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i1H0 = 0; // used 46*2 times in one of the loops it seems. // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i2H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i3H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i4H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i5H0 = 0;// Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i6H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i7H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i8H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i9H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i10H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i11H0 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-
-int i0H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i1H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i2H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i3H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i4H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i5H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i6H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i7H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i8H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i9H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i10H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i11H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i12H1 = 0; // Global variable used for a local purpose. TODO: Remove this.
-
-
-int i0H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i1H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i2H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i3H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i4H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i5H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i6H3 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i7H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i8H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i9H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i10H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i11H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-
-
-int i2H4 = 0; // used in attack() but gets zeroed afterwards. // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i6H4 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i10H4 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i12H4 = 0; // Another global variable used for a local purpose. TODO: Remove it.
-
-int i0H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i4H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i8H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i12H5 = 0; // Global variable for a local purpose. TODO: Remove it
 
 int battery_voltage;
 String comdata = "";
@@ -366,17 +298,16 @@ void original_latest() {
 void move_backward_latest1() {
     //PROCESS 5:
     // TODO: This is stupid. Fix it.
-    int counters[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // We might not use all of them, but im having as many counters as servos so the indexes line up
     for (int i = 0; i <= 45; i++) {
-        set_servo_back(l0.s1, counters[0], 90);
+        l0.Step_bw(90, 46);
         l2.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_back(l4.s1, counters[4], 90);
+        l4.Step_bw(90, 46);
         l6.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_forw(l8.s1, counters[8], 90);
+        l8.Step_fw(90, 46);
         l10.s1.write(90);
         delay(ACTIONSPEED);
     }
@@ -385,34 +316,35 @@ void move_backward_latest1() {
 
     for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
-        set_servo_forw(l0.s1, counters[0], 45);
-        set_servo_back(l1.s1, counters[1], 90);
+        l0.Step_fw(45, 46);
+        l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg2
         l2.s1.write(90);
-        set_servo_forw(l3.s1, counters[3], 45);
-        set_servo_forw(l3.s1, counters[3], 45);
+        for (int k = 0; k < 2; k++){
+            l3.Step_fw(45, 46);
+        }
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
-        set_servo_forw(l4.s1, counters[4], 45);
-        set_servo_back(l5.s1, counters[5], 120);
+        l4.Step_fw(45, 46);
+        l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
 
         // Rise the leg4
         l6.s1.write(90);
-        set_servo_back(l7.s1, counters[7], 135);
+        l7.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        set_servo_back(l8.s1, counters[8], 135);
-        set_servo_forw(l9.s1, counters[9], 72.5);
+        l8.Step_bw(135, 46);
+        l9.Step_fw(72.5, 46);
         delay(ACTIONSPEED);
 
-        // Rise the leg6
+        // Raise leg6
         l10.s1.write(90);
-        set_servo_back(l11.s1, counters[11], 90);
+        l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
     }
 
@@ -422,15 +354,15 @@ void move_backward_latest1() {
     for (int i = 0; i <= 45; i++) {
         // TODO: Set this inside another loop.
         l0.s1.write(90);
-        set_servo_back(l2.s1, counters[2], 90);
+        l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         l4.s1.write(90);
-        set_servo_forw(l6.s1, counters[6], 90);
+        l6.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         l8.s1.write(90);
-        set_servo_forw(l10.s1, counters[10], 90);
+        l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
 
@@ -438,32 +370,33 @@ void move_backward_latest1() {
     for (int i = 0; i <= 45; i++) {
         // Raiseleg1
         l0.s1.write(90);
-        set_servo_forw(l1.s1, counters[1], 45);
+        l1.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
-        set_servo_forw(l2.s1, counters[2], 45);
-        set_servo_back(l3.s1, counters[3], 90);
+        l2.Step_fw(45, 46);
+        l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
-        // Rise the leg3
+        // Raise leg3
         l4.s1.write(90);
-        set_servo_forw(l5.s1, counters[5], 75);
+        l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        set_servo_back(l6.s1, counters[6], 135);
-        set_servo_forw(l7.s1, i7H1, 90);
+        l6.Step_bw(135, 46);
+        l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg5
         l8.s1.write(90);
-        set_servo_back(l9.s1, i9H1, 117.5);
+        l9.Step_bw(117.5, 46);
+        l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        set_servo_back(l10.s1, i10H1, 135);
-        set_servo_forw(l11.s1, i11H1, 45);
+        l10.Step_bw(135, 46);
+        l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 }
@@ -475,16 +408,16 @@ void move_forward_latest1() {
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++) {
         l0.s1.write(90);
-        set_servo_back(l2.s1, i2H4, 90);
+        l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         l4.s1.write(90);
         //delay(ACTIONSPEED);
-        set_servo_forw(l6.s1, i6H4, 90);
+        l6.Step_fw(90, 46);
         delay(ACTIONSPEED); // Why is this here?
 
         l8.s1.write(90);
-        set_servo_forw(l10.s1, i10H4, 90);
+        l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
     }
@@ -495,31 +428,31 @@ void move_forward_latest1() {
     for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
         l0.s1.write(90);//90
-        set_servo_back(l1.s1, i1H3, 90);
+        l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg2
-        set_servo_forw(l2.s1, i2H3, 45);
-        set_servo_forw(l3.s1, i3H3, 45);
+        l2.Step_fw(45, 46);
+        l3.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
         l4.s1.write(90);  //90
-        set_servo_back(l5.s1, i5H3, 120);
+        l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
         // Rise the leg4
-        set_servo_back(l6.s1, i6H3, 135);
-        set_servo_back(l7.s1, i7H3, 135);
+        l6.Step_bw(135, 46);
+        l7.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
         l8.s1.write(90);  //90
-        set_servo_forw(l9.s1, i9H3, 72.5);
+        l9.Step_fw(72.5, 46);
         delay(ACTIONSPEED);
 
         // Raise leg6
-        set_servo_back(l10.s1, i10H3, 135);
-        set_servo_back(l11.s1, i11H3, 90);
+        l10.Step_bw(135, 46);
+        l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
     }
@@ -528,14 +461,15 @@ void move_forward_latest1() {
 
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++){
-        set_servo_back(l0.s1, i0H5, 90);
+        l0.Step_bw(90, 46);
         l2.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_back(l4.s1, i4H5, 90);
+        l4.Step_bw(90, 46);
         l6.s1.write(90);
         delay(ACTIONSPEED);
-        set_servo_forw(l8.s1, i8H5, 90);
+
+        l8.Step_fw(90, 46);
         l10.s1.write(90);
         delay(ACTIONSPEED);
 
@@ -545,33 +479,33 @@ void move_forward_latest1() {
     /*(rorate first leg forward move first leg back to the ground) and
       (rorate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
-        // Rise the leg1
-        set_servo_forw(l0.s1, i0H1, 45);
-        set_servo_forw(l1.s1, i1H1, 45);
+        // Raise leg1
+        l0.Step_fw(45, 46);
+        l1.Step_fw(45, 46);
 
         delay(ACTIONSPEED);
         // Move back to touch the ground2
         l2.s1.write(90);
-        set_servo_back(l3.s1, i3H1, 90);
+        l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
         // Raise leg3
-        set_servo_forw(l4.s1, i4H1, 45);
-        set_servo_forw(l5.s1, i5H1, 75);
+        l4.Step_fw(45, 46);
+        l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
         l6.s1.write(90);
-        set_servo_forw(l7.s1, i7H1, 90);
+        l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg5
-        set_servo_back(l8.s1, i8H1, 135);
-        set_servo_back(l9.s1, i9H1, 117.5);
+        l8.Step_bw(135, 46);
+        l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         l10.s1.write(90);
-        set_servo_forw(l11.s1, i11H1, 45);
+        l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 }
@@ -582,16 +516,16 @@ void move_left_latest1() {
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++){
         l0.s1.write(90);
-        set_servo_back(l2.s1, i2H4, 90);
+        l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         l4.s1.write(90);
-        set_servo_forw(l6.s1, i6H4, 90);
+        l6.Step_fw(90, 46);
 
         delay(ACTIONSPEED);
 
         l8.s1.write(90);
-        set_servo_forw(l10.s1, i10H4, 90);
+        l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
 
@@ -601,32 +535,32 @@ void move_left_latest1() {
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         l0.s1.write(90);
-        set_servo_forw(l1.s1, i1H3, 45);
+        l1.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Raise leg2
-        set_servo_forw(l2.s1, i2H3, 45);
-        set_servo_back(l3.s1, i3H3, 90);
+        l2.Step_fw(45, 46);
+        l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
         //  delay(1);
 
         // Move back to touch the ground3
         l4.s1.write(90);
-        set_servo_forw(l5.s1, i5H3, 75);
+        l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
         // Rise the leg4
-        set_servo_back(l6.s1, i6H3, 135);
-        set_servo_back(l7.s1, i7H3, 135);
+        l6.Step_bw(135, 46);
+        l7.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
         l8.s1.write(90);
-        set_servo_forw(l9.s1, i9H3, 72.5);
+        l9.Step_fw(72.5, 46);
         delay(ACTIONSPEED);
 
         // Raise leg6
-        set_servo_back(l10.s1, i10H3, 135);
-        set_servo_back(l11.s1, i11H3, 90);
+        l10.Step_bw(135, 46);
+        l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
     }
 
@@ -635,15 +569,15 @@ void move_left_latest1() {
 
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++) {
-        set_servo_back(l0.s1, i0H5, 90);
+        l0.Step_bw(90, 46);
         l2.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_back(l4.s1, i4H5, 90);
+        l4.Step_bw(90, 46);
         l6.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_forw(l8.s1, i8H5, 90);
+        l8.Step_fw(90, 46);
         l10.s1.write(90);
         delay(ACTIONSPEED);
     }
@@ -654,33 +588,33 @@ void move_left_latest1() {
       (torate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Rise the leg1
-        set_servo_forw(l0.s1, i0H1, 45);
-        set_servo_back(l1.s1, i1H1, 90);
+        l0.Step_fw(45, 46);
+        l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
         l2.s1.write(90);
-        set_servo_forw(l3.s1, i3H1, 45);
+        l3.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Raise leg3
-        set_servo_forw(l4.s1, i4H1, 45);
-        set_servo_back(l5.s1, i5H1, 120);
+        l4.Step_fw(45, 46);
+        l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
         l6.s1.write(90);
-        set_servo_forw(l7.s1, i7H1, 90);
+        l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         // Rise the leg5
-        set_servo_back(l8.s1, i8H1, 135);
-        set_servo_back(l9.s1, i9H1, 117.5);
+        l8.Step_bw(135, 46);
+        l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         l10.s1.write(90);
-        set_servo_forw(l11.s1, i11H1, 45);
+        l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 }
@@ -695,15 +629,15 @@ void move_right_latest1() {
     for (int i = 0; i <= 45; i++) {
         // TODO: Set this inside another loop.
         l0.s1.write(90);
-        set_servo_back(l2.s1, i2H4, 90);
+        l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         l4.s1.write(90);
-        set_servo_forw(l6.s1, i6H4, 90);
+        l6.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         l8.s1.write(90);
-        set_servo_forw(l10.s1, i10H4, 90);
+        l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
 
@@ -713,32 +647,32 @@ void move_right_latest1() {
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         l0.s1.write(90);
-        set_servo_back(l1.s1, i1H3, 90);
+        l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg2
-        set_servo_forw(l2.s1, i2H3, 45);
-        set_servo_forw(l3.s1, i3H3, 45);
+        l2.Step_fw(45, 46);
+        l3.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
         l4.s1.write(90);
-        set_servo_back(l5.s1, i5H3, 120);
+        l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
 
         // Raise leg4
-        set_servo_back(l6.s1, i6H3, 135);
-        set_servo_forw(l7.s1, i7H3, 90);
+        l6.Step_bw(135, 46);
+        l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
         l8.s1.write(90);
-        set_servo_back(l9.s1, i9H3, 117.5);
+        l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
 
         // Raise leg6
-        set_servo_back(l10.s1, i10H3, 135);
-        set_servo_forw(l11.s1, i11H3, 45);
+        l10.Step_bw(135, 46);
+        l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 
@@ -748,15 +682,15 @@ void move_right_latest1() {
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++) {
         // TODO: Get this inside another loop.
-        set_servo_back(l0.s1, i0H5, 90);
+        l0.Step_fw(90, 46);
         l2.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_back(l4.s1, i4H5, 90);
+        l4.Step_bw(90, 46);
         l6.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_forw(l8.s1, i8H5, 90);
+        l8.Step_fw(90, 46);
         l10.s1.write(90);
         delay(ACTIONSPEED);
     }
@@ -766,33 +700,33 @@ void move_right_latest1() {
       (torate second leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Rise the leg1
-        set_servo_forw(l0.s1, i0H1, 45);
-        set_servo_forw(l1.s1, i1H1, 45);
+        l0.Step_fw(45, 46);
+        l1.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
         l2.s1.write(90);
-        set_servo_back(l3.s1, i3H1, 90);
+        l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         // Raise leg3
-        set_servo_forw(l4.s1, i4H1, 45);
-        set_servo_forw(l5.s1, i5H1, 75);
+        l4.Step_fw(45, 46);
+        l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
         l6.s1.write(90);
-        set_servo_back(l7.s1, i7H1, 135);
+        l8.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
         // Raise leg5
-        set_servo_forw(l9.s1, i9H1, 72.5);
-        set_servo_back(l8.s1, i8H1, 135);
+        l9.Step_fw(72.5, 46);
+        l8.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         l10.s1.write(90);
-        set_servo_back(l11.s1, i11H1, 90);
+        l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
     }
     /**********rotate forward and rotate backward to the initial position**********/
@@ -1028,38 +962,25 @@ long ultrasonic() {
     //  Serial.println("cm");
 }
 
-void set_servo_back(Servo& servo, int &position, double value){
-    servo.write(value - position);
-    position++;
-    position = position % 46;
-}
-
-void set_servo_forw(Servo& servo, int &position, double value){
-    servo.write(value + position);
-    position++;
-    position = position % 46;
-}
-
 void step_by_step() {
     /* Recoded with a temporary solution until I understand the code better and can make something nicer. This is to save flash memory*/
-    Servo* servos_loop1[7] = {&l1.s1, &l2.s1, &l4.s1, &l6.s1, &l8.s1, &l10.s1, &l1.s1};// &l1.s1, &l3.s1, &l5.s1, &l7.s1, &l9.s1, &l11.s1};
-    int* counters_loop1[7] = {&i0H0, &i2H0, &i4H0, &i6H0, &i8H0, &i10H0, &i1H0};
+    leg* legs_loop1[7] = {&l1, &l2, &l4, &l6, &l8, &l10, &l1};
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 7; k++){
-            set_servo_back(*(servos_loop1[k]), *(counters_loop1[k]), 135);
+            legs_loop1[k]->Step_bw(135, 46);
             delay(ACTIONSPEED);
         }
-        set_servo_back(l1.s1, i1H0, 45);
+        l1.Step_bw(45, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l3.s1, i3H0, 45);
+        l3.Step_bw(45, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l5.s1, i5H0, 120);
+        l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l7.s1, i7H0, 135);
+        l7.Step_fw(135, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l9.s1, i9H0, 95);
+        l9.Step_fw(95, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l11.s1, i11H0, 45);
+        l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
         if (Serial.available() > 0) {
@@ -1068,24 +989,23 @@ void step_by_step() {
         delay(ACTIONSPEED);
     }
 
-    Servo* Servos_loop2[] = {&l0.s1, &l2.s1, &l4.s1, &l6.s1, &l8.s1, &l10.s1};
-    int* counters_loop2[] = {&i0H0, &i2H0, &i4H0, &i6H0, &i8H0, &i10H0};
+    leg* legs_loop2[] = {&l0, &l2, &l4, &l6, &l8, &l10};
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 6; k++){
-            set_servo_back(*(Servos_loop2[k]), *(counters_loop2[k]), 90);
+            legs_loop2[k]->Step_bw(90, 46);
             delay(ACTIONSPEED);
         }
-        set_servo_forw(l1.s1, i1H0, 0);
+        l1.Step_fw(0, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l3.s1, i3H0, 0);
+        l3.Step_fw(0, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l5.s1, i5H0, 75);
+        l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l7.s1, i7H0, 180);
+        l7.Step_bw(180, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l9.s1, i9H0, 135);
+        l9.Step_bw(135, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l11.s1, i11H0, 90);
+        l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
         if (Serial.available() > 0) {
@@ -1093,20 +1013,19 @@ void step_by_step() {
         }
         delay(ACTIONSPEED);
     }
-    Servo* Servos_loop3[8] = {&l0.s1, &l2.s1, &l4.s1, &l6.s1, &l8.s1, &l10.s1, &l1.s1, &l3.s1};
-    int* counters_loop3[8] = {&i0H0, &i2H0, &i4H0, &i6H0, &i8H0, &i10H0, &i11H0, &i3H0};
+    leg* legs_loop3[8] = {&l0, &l2, &l4, &l6, &l8, &l10, &l1, &l3};
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 8; k++){
-            set_servo_forw(*(Servos_loop3)[k], *(counters_loop3[k]), 45);
+            legs_loop3[k]->Step_fw(45, 46);
             delay(ACTIONSPEED);
         }
-        set_servo_forw(l5.s1, i5H0, 120);
+        l5.Step_fw(120, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l7.s1, i7H0, 135);
+        l7.Step_bw(135, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l9.s1, i9H0, 95);
+        l9.Step_bw(95, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l11.s1, i11H0, 45);
+        l11.Step_bw(45, 46);
         delay(ACTIONSPEED);
 
         if (Serial.available() > 0) {
@@ -1114,25 +1033,24 @@ void step_by_step() {
         }
         delay(ACTIONSPEED);
     }
-    Servo* Servos_loop4[6] = {&l0.s1, &l2.s1, &l4.s1, &l6.s1, &l8.s1, &l10.s1};
-    int* counters_loop4[6] = {&i0H0, &i2H0, &i4H0, &i6H0, &i8H0, &i10H0};
+    leg* legs_loop4[6] = {&l0, &l2, &l4, &l6, &l8, &l10};
     for (int i = 0; i <= 45; i++){
         for (int k = 0; k < 6; k++){
             // +90
-            set_servo_forw(*(Servos_loop4[k]), *(counters_loop4[k]), 90);
+            legs_loop4[k]->Step_fw(90, 46);
             delay(ACTIONSPEED);
         }
-        set_servo_back(l1.s1, i1H0, 90);
+        l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l3.s1, i3H0, 90);
+        l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
-        set_servo_back(l5.s1, i5H0, 165);
+        l5.Step_bw(165, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l7.s1, i7H0, 90);
+        l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l9.s1, i9H0, 50);
+        l9.Step_fw(50, 46);
         delay(ACTIONSPEED);
-        set_servo_forw(l11.s1, i11H0, 0);
+        l11.Step_fw(0, 46);
         delay(ACTIONSPEED);
 
         if (Serial.available() > 0) {
@@ -1143,26 +1061,22 @@ void step_by_step() {
     battery();
     sendbattery();
 }
-
-void doWhatever(int val1, int& val2, bool add){
+/*
+void doWhatever(int val, bool add) { // LEGACY: keeping it as a comment so i can figure out why its <= 30 and not < 30
     // What is this for?
     for (int i = 0; i <= 30; i++){
         delay(10);
         if (add){
-            l12.s1.write(val1 + val2);
+            l12.Step_fw(val, 31);
         }
         else{
-            l12.s1.write(val1 - val2);
-        }
-        val2++;
-        if (val2 == 31){
-            val2 = 0;
+            l12.Step_bw(val, 31);
         }
         if (Serial.available() > 0){
             break;
         }
     }
-}
+}*/
 
 
 void attack() {
@@ -1181,11 +1095,23 @@ void attack() {
         l9.s1.write(135); //95
         l11.s1.write(90);//0
         l10.s1.write(135);   //180
+        for (int i = 0; i <= 30; i++){ // TODO: I think this is a bug, it should be < 30
+            delay(10);
+            l12.Step_fw(90,31);
+        }
+        for (int i = 0; i <= 30; i++){ // TODO: I think this is a bug, it should be < 30
+            delay(10);
+            l12.Step_bw(120,31);
+        }
 
-        doWhatever(90, i2H4, true);
-        doWhatever(120, i2H4, false);
-        doWhatever(90, i2H4, false);
-        doWhatever(60, i2H4, true);
+        for (int i = 0; i <= 30; i++){ // TODO: I think this is a bug, it should be < 30
+            delay(10);
+            l12.Step_bw(90,31);
+        }
+        for (int i = 0; i <= 30; i++){ // TODO: I think this is a bug, it should be < 30
+            delay(10);
+            l12.Step_fw(60,31);
+        }
     }
     else if (a > 15) {
         while (a > 15) {
@@ -1254,15 +1180,15 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     int cntr = 0;
     for (int i = 0; i <= 45; i++){
         l0.s1.write(90);
-        set_servo_back(l2.s1, i2H4, 100);
+        l2.Step_bw(100);
         delay(ACTIONSPEED);
         l4.s1.write(90);
-        set_servo_forw(l6.s1, i6H4, 90);
+        l6.Step_fw(90);
         delay(ACTIONSPEED);
         l8.s1.write(90);
-        set_servo_forw(l10.s1, i10H4, 90);
+        l10.Step_fw(90);
         delay(ACTIONSPEED);
-        l12.s1.write(90 + i12H4);
+        l12.s1.write(90 + cntr);
 
         if (cntr < 20) { // TODO: Does this need to be here?
             cntr++;
@@ -1281,31 +1207,31 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
         l0.s1.write(90);//90
-        set_servo_back(l1.s1, i1H3, 90);
+        l1.Step_bw(90);
         delay(ACTIONSPEED);
         // Rise the leg2
-        set_servo_forw(l2.s1, i2H3, 45);
-        set_servo_forw(l3.s1, i3H3, 22.5);
+        l2.Step_fw(45);
+        l3.Step_fw(22.5);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
         l4.s1.write(90);  //90
-        set_servo_back(l5.s1, i5H3, 120);
+        l5.Step_bw(120);
         delay(ACTIONSPEED);
 
         // Raise leg4
-        set_servo_back(l6.s1, i6H3, 135);
-        set_servo_back(l7.s1, i7H3, 135);
+        l6.Step_bw(135);
+        l7.Step_bw(135);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
         l8.s1.write(90);  //90
-        set_servo_forw(l9.s1, i9H3, 72.5);
+        l9.Step_fw(72.5);
         delay(ACTIONSPEED);
 
         // Raise leg6
-        set_servo_back(l10.s1, i10H3, 135);
-        set_servo_back(l11.s1, i11H3, 90);
+        l10.Step_bw(135);
+        l11.Step_bw(90);
         delay(ACTIONSPEED);
         l12.s1.write(110 - cntr);
 
@@ -1324,19 +1250,19 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     //PROCESS 5:(raise the first leg)
     cntr = 0;
     for (int i = 0; i <= 45; i++) {
-        set_servo_back(l0.s1, i0H5, 90);
+        l0.Step_bw(90);
         l2.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_back(l4.s1, i4H5, 90);
+        l4.Step_bw(90);
         l6.s1.write(90);
         delay(ACTIONSPEED);
 
-        set_servo_forw(l8.s1, i8H5, 90);
+        l8.Step_fw(90);
         l10.s1.write(90);
         delay(ACTIONSPEED);
 
-        l12.s1.write(90 - i12H5);
+        l12.s1.write(90 - cntr);
 
         if (cntr < 20) {
             cntr++;
@@ -1358,35 +1284,35 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     cntr = 0;
     for (int i = 0; i <= 45; i++){
         // Raise leg1
-        set_servo_forw(l0.s1, i0H1, 45);
-        set_servo_forw(l1.s1, i1H1, 45);
+        l0.Step_fw(45);
+        l1.Step_fw(45);
         delay(ACTIONSPEED);
         // Move back to touch the ground2
         l2.s1.write(90);
-        set_servo_back(l3.s1, i3H1, 67.5);
+        l3.Step_bw(67.5);
         delay(ACTIONSPEED);
 
         // Raise leg3
-        set_servo_forw(l4.s1, i4H1, 45);
-        set_servo_forw(l5.s1, i5H1, 75);
+        l4.Step_fw(45);
+        l5.Step_fw(75);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
         l6.s1.write(90);
-        set_servo_forw(l7.s1, i7H1, 90);
+        l7.Step_fw(90);
         delay(ACTIONSPEED);
 
         // Rise the leg5
-        set_servo_back(l8.s1, i8H1, 135);
-        set_servo_back(l9.s1, i9H1, 117.5);
+        l8.Step_bw(135);
+        l9.Step_bw(117.5);
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
         l10.s1.write(90);
-        set_servo_forw(l11.s1, i11H1, 45);
+        l11.Step_fw(45);
         delay(ACTIONSPEED);
 
-        l12.s1.write(70 + i12H1);
+        l12.s1.write(70 + cntr);
 
         if (cntr < 20) {
             cntr++;
