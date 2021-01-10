@@ -22,6 +22,8 @@
 #include <SR04.h>
 #include <Good_code.h>
 #include <Shitty_Code.h>
+// Define leg class. TODO: Move this into separate file
+
 
 
 //define pins
@@ -65,34 +67,35 @@ Servo s12;
 
 
 // These oddly named integers appears to store the current "location" of each servo.
-int i0H0 = 0;
-int i1H0 = 0;
-int i2H0 = 0;
-int i3H0 = 0;
-int i4H0 = 0;
-int i5H0 = 0;
-int i6H0 = 0;
-int i7H0 = 0;
-int i8H0 = 0;
-int i9H0 = 0;
-int i10H0 = 0;
-int i11H0 = 0;
-int i12H0 = 0;
+int i0H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i1H0 = 0; // used 46*2 times in one of the loops it seems. // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i2H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i3H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i4H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i5H0 = 0;// Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i6H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i7H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i8H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i9H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i10H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i11H0 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+//int i12H0 = 0; // unused
 
-int i0H1 = 0;
-int i1H1 = 0;
-int i2H1 = 0;
-int i3H1 = 0;
-int i4H1 = 0;
-int i5H1 = 0;
-int i6H1 = 0;
-int i7H1 = 0;
-int i8H1 = 0;
-int i9H1 = 0;
-int i10H1 = 0;
-int i11H1 = 0;
-int i12H1 = 0;
+int i0H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i1H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i2H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i3H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i4H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i5H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i6H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i7H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i8H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i9H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i10H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i11H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i12H1 = 0; // Global variable used for a local purpose. TODO: Remove this.
 
+/* UNUSED
 int i0H2 = 0;
 int i1H2 = 0;
 int i2H2 = 0;
@@ -106,48 +109,49 @@ int i9H2 = 0;
 int i10H2 = 0;
 int i11H2 = 0;
 int i12H2 = 0;
+*/
 
-int i0H3 = 0;
-int i1H3 = 0;
-int i2H3 = 0;
-int i3H3 = 0;
-int i4H3 = 0;
-int i5H3 = 0;
-int i6H3 = 0;
-int i7H3 = 0;
-int i8H3 = 0;
-int i9H3 = 0;
-int i10H3 = 0;
-int i11H3 = 0;
-int i12H3 = 0;
+int i0H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i1H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i2H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i3H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i4H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i5H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i6H3 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i7H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i8H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i9H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i10H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i11H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i12H3 = 0; // Another global variable used for a local purpose. TODO: Remove it.
 
-int i0H4 = 0;
-int i1H4 = 0;
-int i2H4 = 0;
-int i3H4 = 0;
-int i4H4 = 0;
-int i5H4 = 0;
-int i6H4 = 0;
-int i7H4 = 0;
-int i8H4 = 0;
-int i9H4 = 0;
-int i10H4 = 0;
-int i11H4 = 0;
-int i12H4 = 0;
+//int i0H4 = 0; // unused
+// int i1H4 = 0;// unused
+int i2H4 = 0; // used in attack() but gets zeroed afterwards. // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+// int i3H4 = 0; // unused
+int i4H4 = 0; // unused
+int i5H4 = 0; // unused
+int i6H4 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i7H4 = 0; // unused
+int i8H4 = 0;// unused
+int i9H4 = 0; // unused
+int i10H4 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i11H4 = 0; // unused
+int i12H4 = 0; // Another global variable used for a local purpose. TODO: Remove it.
 
-int i0H5 = 0;
-int i1H5 = 0;
-int i2H5 = 0;
-int i3H5 = 0;
-int i4H5 = 0;
-int i5H5 = 0;
-int i6H5 = 0;
-int i7H5 = 0;
-int i8H5 = 0;
-int i9H5 = 0;
-int i10H5 = 0;
-int i11H5 = 0;
-int i12H5 = 0;
+int i0H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i1H5 = 0; // unused
+int i2H5 = 0; // unused
+int i3H5 = 0; // unused
+int i4H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i5H5 = 0; // unused
+int i6H5 = 0; // unused
+int i7H5 = 0; // unused
+int i8H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
+int i9H5 = 0; // unused
+int i10H5 = 0; // unused
+int i11H5 = 0;  // unused
+int i12H5 = 0; // Global variable for a local purpose. TODO: Remove it
 
 int battery_voltage;
 String comdata = "";
@@ -1262,9 +1266,8 @@ char judgement(String &comdata) { // uses serial input to determine our next act
     return judge;
 }
 
-void advoid() {
+void advoid() { // Called when user pushes "Auto". Im assuming its going to walk around and try to avoid things in front of it
     /**********rotate forward and rotate backward to the initial position**********/
-    //  char R=random(0,255);
 
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++){
@@ -1368,7 +1371,6 @@ void advoid() {
         if (Serial.available() > 0) {
             break;
         }
-        //  delay(ACTIONSPEED);
     }
     i12H5 = 0;
 
