@@ -79,7 +79,6 @@ int i8H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) af
 int i9H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i10H0 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i11H0 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-//int i12H0 = 0; // unused
 
 int i0H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i1H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
@@ -95,21 +94,6 @@ int i10H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) a
 int i11H1 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i12H1 = 0; // Global variable used for a local purpose. TODO: Remove this.
 
-/* UNUSED
-int i0H2 = 0;
-int i1H2 = 0;
-int i2H2 = 0;
-int i3H2 = 0;
-int i4H2 = 0;
-int i5H2 = 0;
-int i6H2 = 0;
-int i7H2 = 0;
-int i8H2 = 0;
-int i9H2 = 0;
-int i10H2 = 0;
-int i11H2 = 0;
-int i12H2 = 0;
-*/
 
 int i0H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i1H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
@@ -125,32 +109,15 @@ int i10H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) a
 int i11H3 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
 int i12H3 = 0; // Another global variable used for a local purpose. TODO: Remove it.
 
-//int i0H4 = 0; // unused
-// int i1H4 = 0;// unused
+
 int i2H4 = 0; // used in attack() but gets zeroed afterwards. // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-// int i3H4 = 0; // unused
-int i4H4 = 0; // unused
-int i5H4 = 0; // unused
 int i6H4 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i7H4 = 0; // unused
-int i8H4 = 0;// unused
-int i9H4 = 0; // unused
 int i10H4 = 0;  // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i11H4 = 0; // unused
 int i12H4 = 0; // Another global variable used for a local purpose. TODO: Remove it.
 
 int i0H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i1H5 = 0; // unused
-int i2H5 = 0; // unused
-int i3H5 = 0; // unused
 int i4H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i5H5 = 0; // unused
-int i6H5 = 0; // unused
-int i7H5 = 0; // unused
 int i8H5 = 0; // Its going to be set to 0 (or 1 due to what i think is a bug) after usage...
-int i9H5 = 0; // unused
-int i10H5 = 0; // unused
-int i11H5 = 0;  // unused
 int i12H5 = 0; // Global variable for a local purpose. TODO: Remove it
 
 int battery_voltage;
