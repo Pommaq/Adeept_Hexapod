@@ -15,13 +15,11 @@
 class leg{
     public:
         Servo s1;
-        //Servo s2; // Used later once I figure out what servo goes where
-        int H0;
-        int H1;
-        // int H2;
-        int H3;
-        int H4;
-        int H5;
+        //Servo l2.s1; // Used later once I figure out what servo goes where
+        int b_counter = 0; // two counters for now until I know its safe for them to be 1
+        int f_counter = 0;
+        void Step_fw(int val);
+        void Step_bw(int val);
 
 };
 
