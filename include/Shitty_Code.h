@@ -6,23 +6,23 @@
 #define ADEEPT_HEXAPOD_SHITTY_CODE_H
 
 // Prototypes to make the platformio compiler stfu
-void battery();
+void get_battery_level();
 
 void sendultrasonic();
 
 long ultrasonic();
 
-void sendbattery();
+void sendbatterylevel();
 
-void original_latest();
+void stand_up();
 
-void move_backward_latest1();
+void move_backward();
 
-void move_forward_latest1();
+void move_forward();
 
-void move_left_latest1();
+void move_left();
 
-void move_right_latest1();
+void move_right();
 
 void Stand_Up();
 
@@ -36,6 +36,6 @@ void attack();
 
 char judgement(String &comdata);
 
-void advoid();
+void autopilot();
 
 #endif //ADEEPT_HEXAPOD_SHITTY_CODE_H

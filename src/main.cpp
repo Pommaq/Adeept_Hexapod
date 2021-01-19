@@ -13,7 +13,6 @@
   Date: 2019/07/01
 ***********************************************************/
 
-//add some libraries
 
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
@@ -23,7 +22,6 @@
 #include <Good_code.h>
 #include <Shitty_Code.h>
 #include <Leg.h>
-// Define leg class. TODO: Move this into separate file
 
 
 
@@ -36,7 +34,6 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(led_numbers, PIN, NEO_GRB + NEO_KHZ8
 SR04 sr04 = SR04(ECHO_PIN, TRIG_PIN);
 
 
-//Declaring some global variables
 int gyro_x, gyro_y, gyro_z;
 long acc_x, acc_y, acc_z, acc_total_vector;
 int temperature;
@@ -49,9 +46,7 @@ boolean set_gyro_angles;
 float angle_roll_acc, angle_pitch_acc;
 float angle_pitch_output, angle_roll_output, angle_yaw_output;
 float angle_changed;
-// long a; // Used in one function call.
 
-// Create servo objects
 leg l0;
 leg l1;
 leg l2;
@@ -79,6 +74,7 @@ String text7 = "7";
 String text8 = "8";
 String text9 = "9";
 
+ /* I suspect these are used in the phone remote control app but i cannot find the source to confirm*/
 String phone1 = "forwardStart\n";
 String phone2 = "backwardStart\n";
 String phone3 = "leftStart\n";
@@ -96,24 +92,26 @@ unsigned long uptime = 0;
 int angle = 20;
 
 
+
 void setup() {
     //initialize the steering gear
-    l0.s1.attach(2);
-    l1.s1.attach(3);
-    l2.s1.attach(4);
-    l3.s1.attach(5);
-    l4.s1.attach(6);
-    l5.s1.attach(7);
-    l6.s1.attach(8);
-    l7.s1.attach(9);
-    l8.s1.attach(10);
-    l9.s1.attach(11);
-    l10.s1.attach(12);
-    l11.s1.attach(13);
-    l12.s1.attach(14);
-    original_latest(); // Makes this sexy little spider stand up
+    l0.attach(2);
+    l1.attach(3);
+    l2.attach(4);
+    l3.attach(5);
+    l4.attach(6);
+    l5.attach(7);
+    l6.attach(8);
+    l7.attach(9);
+    l8.attach(10);
+    l9.attach(11);
+    l10.attach(12);
+    l11.attach(13);
+    l12.attach(14);
+    stand_up(); // Makes this sexy little spider stand up
 
-    //calculate battery capacity
+
+    //calculate get_battery_level capacity
     battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08;
 
     //initialize the strip
@@ -133,7 +131,7 @@ void setup() {
         delay(50);
     }
 
-    //send the battery capacity data to ESP8266
+    //send the get_battery_level capacity data to ESP8266
     battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08;
     double showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
     Serial.println("AT+CIPSEND=0,6\r\n");
@@ -158,19 +156,19 @@ void loop() {
     Serial.println((int)judge);
     switch (judge) {
         case 1: while (!Serial.available()) {
-                move_forward_latest1();
+                move_forward();
             }
             break;
         case 2: while (!Serial.available()) {
-                move_backward_latest1();
+                move_backward();
             }
             break;
         case 3: while (!Serial.available()) {
-                move_right_latest1();
+                move_right();
             }
             break;
         case 4: while (!Serial.available()) {
-                move_left_latest1();
+                move_left();
             }
             break;
         case 5: while (!Serial.available()) { // Detta är varför roboten får spasmer ibland...
@@ -183,29 +181,29 @@ void loop() {
             }
             break;
         case 8: while (!Serial.available()) { // User pressed "Auto". This is broken and appears to enter an infinite loop
-                advoid();
+                autopilot();
             }
             break;
         case 9: while (!Serial.available()) {
-                original_latest();
-                sendbattery();
-                battery();
+                stand_up();
+                sendbatterylevel();
+                get_battery_level();
             }
             break;
         case 11: while (!Serial.available()) { // Wtf gör den här?
-                l0.s1.attach(2);
-                l1.s1.attach(3);
-                l2.s1.attach(4);
-                l3.s1.attach(5);
-                l4.s1.attach(6);
-                l5.s1.attach(7);
-                l6.s1.attach(8);
-                l7.s1.attach(9);
-                l8.s1.attach(10);
-                l9.s1.attach(11);
-                l10.s1.attach(12);
-                l11.s1.attach(13);
-                l12.s1.attach(14);
+                l0.attach(2);
+                l1.attach(3);
+                l2.attach(4);
+                l3.attach(5);
+                l4.attach(6);
+                l5.attach(7);
+                l6.attach(8);
+                l7.attach(9);
+                l8.attach(10);
+                l9.attach(11);
+                l10.attach(12);
+                l11.attach(13);
+                l12.attach(14);
             }
             break;
         default:  break;
@@ -229,15 +227,15 @@ void loop() {
 }
 
 
-void battery() { // Checks the current battery level and sets lights to indicate if its low or not
+void get_battery_level() { // Checks the current get_battery_level level and sets lights to indicate if its low or not
     // TODO: If we assume it will be charged for the most part, swap the if/else cases. Failed if-cases use two instructions compared to 1 upon success.
     if (battery_voltage < 860 ) {                    //If batteryvoltage is below 10.5V and higher than 8.0V 860
         for (int i = 0; i < 6; i++) {
             strip.setPixelColor(i, strip.Color(255, 0, 0)); // Red
             strip.show();
-            delay(1);                                                //Turn on the led if battery voltage is to low
+            delay(1);                                                //Turn on the led if get_battery_level voltage is to low
 
-        }                                                //Turn on the led if battery voltage is to low
+        }                                                //Turn on the led if get_battery_level voltage is to low
     }
     else {
         for (int i = 0; i < 6; i++) { // Battery level is OK.
@@ -249,7 +247,7 @@ void battery() { // Checks the current battery level and sets lights to indicate
 }
 
 void sendultrasonic() { // Sends an ultrasonic signal and rotates head to scan the surroundings.
-    l12.s1.write(angle);
+    l12.write(angle);
     angle++;
     if (angle % 3 == 0) {
         long a = ultrasonic();
@@ -264,9 +262,9 @@ void sendultrasonic() { // Sends an ultrasonic signal and rotates head to scan t
 }
 
 
-void sendbattery() {
+void sendbatterylevel() {
     while (Serial.available() <= 0) {
-        battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08; // Sets global variable battery_voltage to... the battery voltage
+        battery_voltage = battery_voltage * 0.92 + ((analogRead(A7) * 2.93) + 250) * 0.08; // Sets global variable battery_voltage to... the get_battery_level voltage
         double showbattery = (battery_voltage - 190) / 2.93 * 5 / 1023 * 6;
         if (millis() - uptime > 15000) { // If it's been more than 150 seconds since last time this function was called
             Serial.println("AT+CIPSEND=0,6\r\n");
@@ -278,37 +276,37 @@ void sendbattery() {
     }
 }
 //This is the initialization angle of each leg, you can modify the following values according to your needs.
-void original_latest() {
-    l0.s1.write(90);//D2
-    l1.s1.write(90);//D3
-    l2.s1.write(90);//D4
-    l3.s1.write(90);//D5
-    l4.s1.write(90);//D6
-    l5.s1.write(90); //D7
-    l6.s1.write(90);//D8
-    l7.s1.write(90); //D9
-    l8.s1.write(90);//D10
-    l9.s1.write(90); //D11
-    l11.s1.write(90);//D12
-    l10.s1.write(90);//D13
-    l12.s1.write(90);//D14
+void stand_up() {
+    l0.write(90);//D2
+    l1.write(90);//D3
+    l2.write(90);//D4
+    l3.write(90);//D5
+    l4.write(90);//D6
+    l5.write(90); //D7
+    l6.write(90);//D8
+    l7.write(90); //D9
+    l8.write(90);//D10
+    l9.write(90); //D11
+    l11.write(90);//D12
+    l10.write(90);//D13
+    l12.write(90);//D14
 }
 
 
-void move_backward_latest1() {
+void move_backward() {
     //PROCESS 5:
     // TODO: This is stupid. Fix it.
     for (int i = 0; i <= 45; i++) {
         l0.Step_bw(90, 46);
-        l2.s1.write(90);
+        l2.write(90);
         delay(ACTIONSPEED);
 
         l4.Step_bw(90, 46);
-        l6.s1.write(90);
+        l6.write(90);
         delay(ACTIONSPEED);
 
         l8.Step_fw(90, 46);
-        l10.s1.write(90);
+        l10.write(90);
         delay(ACTIONSPEED);
     }
 
@@ -321,7 +319,7 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
         // Raise leg2
-        l2.s1.write(90);
+        l2.write(90);
         for (int k = 0; k < 2; k++){
             l3.Step_fw(45, 46);
         }
@@ -333,7 +331,7 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
         // Rise the leg4
-        l6.s1.write(90);
+        l6.write(90);
         l7.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
@@ -343,7 +341,7 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
         // Raise leg6
-        l10.s1.write(90);
+        l10.write(90);
         l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
     }
@@ -353,15 +351,15 @@ void move_backward_latest1() {
     //PROCESS 4:
     for (int i = 0; i <= 45; i++) {
         // TODO: Set this inside another loop.
-        l0.s1.write(90);
+        l0.write(90);
         l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
-        l4.s1.write(90);
+        l4.write(90);
         l6.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
-        l8.s1.write(90);
+        l8.write(90);
         l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
@@ -369,7 +367,7 @@ void move_backward_latest1() {
     //PROCESS 1:
     for (int i = 0; i <= 45; i++) {
         // Raiseleg1
-        l0.s1.write(90);
+        l0.write(90);
         l1.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
@@ -379,7 +377,7 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
         // Raise leg3
-        l4.s1.write(90);
+        l4.write(90);
         l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
 
@@ -389,7 +387,7 @@ void move_backward_latest1() {
         delay(ACTIONSPEED);
 
         // Raise leg5
-        l8.s1.write(90);
+        l8.write(90);
         l9.Step_bw(117.5, 46);
         l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
@@ -402,21 +400,21 @@ void move_backward_latest1() {
 }
 
 
-void move_forward_latest1() {
+void move_forward() {
     /**********rotate forward and rotate backward to the initial position**********/
     // TODO: This is stupid. Fix it.
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++) {
-        l0.s1.write(90);
+        l0.write(90);
         l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
-        l4.s1.write(90);
+        l4.write(90);
         //delay(ACTIONSPEED);
         l6.Step_fw(90, 46);
         delay(ACTIONSPEED); // Why is this here?
 
-        l8.s1.write(90);
+        l8.write(90);
         l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
@@ -427,7 +425,7 @@ void move_forward_latest1() {
       (torate first leg backward)*/
     for (int i = 0; i <= 45; i++) {
         // Move back to touch the ground1
-        l0.s1.write(90);//90
+        l0.write(90);//90
         l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
@@ -437,7 +435,7 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
-        l4.s1.write(90);  //90
+        l4.write(90);  //90
         l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
         // Rise the leg4
@@ -446,7 +444,7 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        l8.s1.write(90);  //90
+        l8.write(90);  //90
         l9.Step_fw(72.5, 46);
         delay(ACTIONSPEED);
 
@@ -462,15 +460,15 @@ void move_forward_latest1() {
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++){
         l0.Step_bw(90, 46);
-        l2.s1.write(90);
+        l2.write(90);
         delay(ACTIONSPEED);
 
         l4.Step_bw(90, 46);
-        l6.s1.write(90);
+        l6.write(90);
         delay(ACTIONSPEED);
 
         l8.Step_fw(90, 46);
-        l10.s1.write(90);
+        l10.write(90);
         delay(ACTIONSPEED);
 
     }
@@ -485,7 +483,7 @@ void move_forward_latest1() {
 
         delay(ACTIONSPEED);
         // Move back to touch the ground2
-        l2.s1.write(90);
+        l2.write(90);
         l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
         // Raise leg3
@@ -494,7 +492,7 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        l6.s1.write(90);
+        l6.write(90);
         l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
@@ -504,27 +502,27 @@ void move_forward_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        l10.s1.write(90);
+        l10.write(90);
         l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 }
 
 
-void move_left_latest1() {
+void move_left() {
     // TODO: This is stupid. Fix it.
     //PROCESS 4:(raise the second leg)
     for (int i = 0; i <= 45; i++){
-        l0.s1.write(90);
+        l0.write(90);
         l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
-        l4.s1.write(90);
+        l4.write(90);
         l6.Step_fw(90, 46);
 
         delay(ACTIONSPEED);
 
-        l8.s1.write(90);
+        l8.write(90);
         l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
@@ -534,7 +532,7 @@ void move_left_latest1() {
       (torate first leg backward)*/
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
-        l0.s1.write(90);
+        l0.write(90);
         l1.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
@@ -545,7 +543,7 @@ void move_left_latest1() {
         //  delay(1);
 
         // Move back to touch the ground3
-        l4.s1.write(90);
+        l4.write(90);
         l5.Step_fw(75, 46);
         delay(ACTIONSPEED);
         // Rise the leg4
@@ -554,7 +552,7 @@ void move_left_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        l8.s1.write(90);
+        l8.write(90);
         l9.Step_fw(72.5, 46);
         delay(ACTIONSPEED);
 
@@ -570,15 +568,15 @@ void move_left_latest1() {
     //PROCESS 5:(raise the first leg)
     for (int i = 0; i <= 45; i++) {
         l0.Step_bw(90, 46);
-        l2.s1.write(90);
+        l2.write(90);
         delay(ACTIONSPEED);
 
         l4.Step_bw(90, 46);
-        l6.s1.write(90);
+        l6.write(90);
         delay(ACTIONSPEED);
 
         l8.Step_fw(90, 46);
-        l10.s1.write(90);
+        l10.write(90);
         delay(ACTIONSPEED);
     }
 
@@ -593,7 +591,7 @@ void move_left_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
-        l2.s1.write(90);
+        l2.write(90);
         l3.Step_fw(45, 46);
         delay(ACTIONSPEED);
 
@@ -603,7 +601,7 @@ void move_left_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        l6.s1.write(90);
+        l6.write(90);
         l7.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
@@ -613,14 +611,14 @@ void move_left_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        l10.s1.write(90);
+        l10.write(90);
         l11.Step_fw(45, 46);
         delay(ACTIONSPEED);
     }
 }
 
 
-void move_right_latest1() {
+void move_right() {
 /**********rotate forward and rotate backward to the initial position**********/
     // TODO: Fix this.
 
@@ -628,15 +626,15 @@ void move_right_latest1() {
 
     for (int i = 0; i <= 45; i++) {
         // TODO: Set this inside another loop.
-        l0.s1.write(90);
+        l0.write(90);
         l2.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
-        l4.s1.write(90);
+        l4.write(90);
         l6.Step_fw(90, 46);
         delay(ACTIONSPEED);
 
-        l8.s1.write(90);
+        l8.write(90);
         l10.Step_fw(90, 46);
         delay(ACTIONSPEED);
     }
@@ -646,7 +644,7 @@ void move_right_latest1() {
       (torate first leg backward)*/
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
-        l0.s1.write(90);
+        l0.write(90);
         l1.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
@@ -656,7 +654,7 @@ void move_right_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
-        l4.s1.write(90);
+        l4.write(90);
         l5.Step_bw(120, 46);
         delay(ACTIONSPEED);
 
@@ -666,7 +664,7 @@ void move_right_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        l8.s1.write(90);
+        l8.write(90);
         l9.Step_bw(117.5, 46);
         delay(ACTIONSPEED);
 
@@ -683,15 +681,15 @@ void move_right_latest1() {
     for (int i = 0; i <= 45; i++) {
         // TODO: Get this inside another loop.
         l0.Step_fw(90, 46);
-        l2.s1.write(90);
+        l2.write(90);
         delay(ACTIONSPEED);
 
         l4.Step_bw(90, 46);
-        l6.s1.write(90);
+        l6.write(90);
         delay(ACTIONSPEED);
 
         l8.Step_fw(90, 46);
-        l10.s1.write(90);
+        l10.write(90);
         delay(ACTIONSPEED);
     }
 
@@ -705,7 +703,7 @@ void move_right_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground2
-        l2.s1.write(90);
+        l2.write(90);
         l3.Step_bw(90, 46);
         delay(ACTIONSPEED);
 
@@ -715,7 +713,7 @@ void move_right_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        l6.s1.write(90);
+        l6.write(90);
         l8.Step_bw(135, 46);
         delay(ACTIONSPEED);
 
@@ -725,7 +723,7 @@ void move_right_latest1() {
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        l10.s1.write(90);
+        l10.write(90);
         l11.Step_bw(90, 46);
         delay(ACTIONSPEED);
     }
@@ -887,61 +885,61 @@ void setup_mpu_6050_registers() {
 
 void Stand_Up() {
     // Stand upright
-    l0.s1.write(90);
-    l1.s1.write(90); //45
-    l3.s1.write(90);//90
-    l2.s1.write(90); //10
-    l4.s1.write(90);
-    l5.s1.write(90); //120
-    l6.s1.write(90);//180
-    l7.s1.write(90); //90
-    l8.s1.write(90);
-    l9.s1.write(95); //95
-    l11.s1.write(90);//0
-    l10.s1.write(90);   //180
-    l12.s1.write(90);
+    l0.write(90);
+    l1.write(90); //45
+    l3.write(90);//90
+    l2.write(90); //10
+    l4.write(90);
+    l5.write(90); //120
+    l6.write(90);//180
+    l7.write(90); //90
+    l8.write(90);
+    l9.write(95); //95
+    l11.write(90);//0
+    l10.write(90);   //180
+    l12.write(90);
 }
 
 
 void self_balanced_test() {
     //left-leaning
     if (angle_pitch_output < -3 && angle_roll_output < 5 && angle_roll_output > -5) {
-        l0.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
-        l2.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
-        l4.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
-        l6.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
-        l8.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
-        l10.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l0.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l2.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l4.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l6.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l8.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l10.write(90 - angle_pitch_output * 2 * 10 / 12);
 
     }
     //right-leaning
     if (angle_pitch_output > 3 && angle_roll_output < 5 && angle_roll_output > -5) {
-        l0.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
-        l2.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
-        l4.s1.write(90 - angle_pitch_output * 2 * 10 / 12);
-        l6.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
-        l8.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
-        l10.s1.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l0.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l2.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l4.write(90 - angle_pitch_output * 2 * 10 / 12);
+        l6.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l8.write(90 + angle_pitch_output * 2 * 2 / 12);
+        l10.write(90 + angle_pitch_output * 2 * 2 / 12);
 
     }
     //forward-leaning
     if (angle_roll_output > 3 && angle_pitch_output < 3 && angle_pitch_output > -3) {
-        l0.s1.write(90 - angle_roll_output * 5 * 1 / 12);
-        l6.s1.write(90 + angle_roll_output * 5 * 1 / 12);
-        l2.s1.write(90 - angle_roll_output * 5 * 8 / 12);
-        l8.s1.write(90 + angle_roll_output * 5 * 8 / 12);
-        l4.s1.write(90 - angle_roll_output * 5 * 9 / 12);
-        l10.s1.write(90 + angle_roll_output * 5 * 9 / 12);
+        l0.write(90 - angle_roll_output * 5 * 1 / 12);
+        l6.write(90 + angle_roll_output * 5 * 1 / 12);
+        l2.write(90 - angle_roll_output * 5 * 8 / 12);
+        l8.write(90 + angle_roll_output * 5 * 8 / 12);
+        l4.write(90 - angle_roll_output * 5 * 9 / 12);
+        l10.write(90 + angle_roll_output * 5 * 9 / 12);
 
     }
     //backward-leaning
     if (angle_roll_output < -3 && angle_pitch_output < 3 && angle_pitch_output > -3) {
-        l0.s1.write(90 + angle_roll_output * 5 * 9 / 12);
-        l6.s1.write(90 - angle_roll_output * 5 * 9 / 12);
-        l2.s1.write(90 + angle_roll_output * 5 * 8 / 12);
-        l8.s1.write(90 - angle_roll_output * 5 * 8 / 12);
-        l4.s1.write(90 + angle_roll_output * 5 * 1 / 12);
-        l10.s1.write(90 - angle_roll_output * 5 * 1 / 12);
+        l0.write(90 + angle_roll_output * 5 * 9 / 12);
+        l6.write(90 - angle_roll_output * 5 * 9 / 12);
+        l2.write(90 + angle_roll_output * 5 * 8 / 12);
+        l8.write(90 - angle_roll_output * 5 * 8 / 12);
+        l4.write(90 + angle_roll_output * 5 * 1 / 12);
+        l10.write(90 - angle_roll_output * 5 * 1 / 12);
 
 
     }
@@ -950,16 +948,11 @@ void self_balanced_test() {
 long ultrasonic() {
     // TODO: Fix this
     long a = sr04.Distance();
-    if (a > 100) {
+    if (a > 100) { // if object is too far away, ignore it I guess?
         a = 0;
     }
     return a;
-    //  if(angel%3 == 0){
-    //  u[]=a;
-    //  }
 
-    //  Serial.print(a);
-    //  Serial.println("cm");
 }
 
 void step_by_step() {
@@ -1058,8 +1051,8 @@ void step_by_step() {
         }
         delay(ACTIONSPEED);
     }
-    battery();
-    sendbattery();
+    get_battery_level();
+    sendbatterylevel();
 }
 /*
 void doWhatever(int val, bool add) { // LEGACY: keeping it as a comment so i can figure out why its <= 30 and not < 30
@@ -1083,18 +1076,18 @@ void attack() {
 
     long a = ultrasonic();
     if (a <= 15 && a > 0) {
-        l0.s1.write(90);
-        l1.s1.write(0); //45
-        l3.s1.write(0);//90
-        l2.s1.write(45); //10
-        l4.s1.write(45);
-        l5.s1.write(75); //120
-        l6.s1.write(90);//180
-        l7.s1.write(180); //90
-        l8.s1.write(135);
-        l9.s1.write(135); //95
-        l11.s1.write(90);//0
-        l10.s1.write(135);   //180
+        l0.write(90);
+        l1.write(0); //45
+        l3.write(0);//90
+        l2.write(45); //10
+        l4.write(45);
+        l5.write(75); //120
+        l6.write(90);//180
+        l7.write(180); //90
+        l8.write(135);
+        l9.write(135); //95
+        l11.write(90);//0
+        l10.write(135);   //180
         for (int i = 0; i <= 30; i++){ // TODO: I think this is a bug, it should be < 30
             delay(10);
             l12.Step_fw(90,31);
@@ -1116,7 +1109,7 @@ void attack() {
     else if (a > 15) {
         while (a > 15) {
             ultrasonic();
-            original_latest();
+            stand_up();
             if (Serial.available() > 0) {
                 break;
             }
@@ -1128,67 +1121,59 @@ char judgement(String &comdata) { // uses serial input to determine our next act
     // TODO: See if we can reprogam the control script so this can be simplified.
     char judge = 0;
     if (comdata.length() > 0)
-    { if (comdata.endsWith(text1) || comdata.endsWith(phone1)) { //forward
+    { if (comdata.endsWith("1") || comdata.endsWith(phone1)) { //forward
             judge = 1;
         }
-        if (comdata.endsWith(text2) || comdata.endsWith(phone2)) { //backward
+        if (comdata.endsWith("2") || comdata.endsWith(phone2)) { //backward
             judge = 2;
         }
-        if (comdata.endsWith(text3) || comdata.endsWith(phone3)) { //right
+        if (comdata.endsWith("3") || comdata.endsWith(phone3)) { //right
             judge = 3;
         }
-        if (comdata.endsWith(text4) || comdata.endsWith(phone4)) { //left
+        if (comdata.endsWith("4") || comdata.endsWith(phone4)) { //left
             judge = 4;
         }
-        if (comdata.endsWith(text5) || comdata.endsWith(phone5)) { //balance
+        if (comdata.endsWith("5") || comdata.endsWith(phone5)) { //balance
             judge = 5;
         }
-        if (comdata.endsWith(text6) || comdata.endsWith(phone6)) { //aviod
+        if (comdata.endsWith("6") || comdata.endsWith(phone6)) { // attack, whatever that means
             judge = 6;
         }
-        if (comdata.endsWith(text7))
+        if (comdata.endsWith("7"))
         {
             judge = 7;
         }
         if (comdata.endsWith(phone7) || comdata.endsWith(phone8) || comdata.endsWith(phone9) || comdata.endsWith(phone10)) {
             judge = 11; //Starting position
         }
-        if (comdata == text8) {
+        if (comdata == "8") { // Auto
             judge = 8;
         }
-        if (comdata.endsWith(text9)) {
+        if (comdata.endsWith("9")) { // stop
             judge = 9;
         }
-        if (comdata.endsWith(text5))
-        {
-            ;//A
-        }
-        if (comdata.endsWith(text6))
-        {
-            ;//B
-        }
         comdata = "";
-        delay(10); // varför??
+        delay(10);
     }
     return judge;
 }
 
-void advoid() { // Called when user pushes "Auto". Im assuming its going to walk around and try to avoid things in front of it
+void autopilot() { // Called when user pushes "Auto". Im assuming its going to walk around and try to avoid things in front of it
     /**********rotate forward and rotate backward to the initial position**********/
 
     //PROCESS 4:(raise the second leg)
     int cntr = 0;
     for (int i = 0; i <= 45; i++){
-        l0.s1.write(90);
+        l0.write(90);
         l2.Step_bw(100);
         delay(ACTIONSPEED);
-        l4.s1.write(90);
+        l4.write(90);
         l6.Step_fw(90);
         delay(ACTIONSPEED);
-        l8.s1.write(90);
+        l8.write(90);
         l10.Step_fw(90);
         delay(ACTIONSPEED);
-        l12.s1.write(90 + cntr);
+        l12.write(90 + cntr);
 
         if (cntr < 20) { // TODO: Does this need to be here?
             cntr++;
@@ -1206,7 +1191,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     cntr = 0;
     for (int i = 0; i <= 45; i++){
         // Move back to touch the ground1
-        l0.s1.write(90);//90
+        l0.write(90);//90
         l1.Step_bw(90);
         delay(ACTIONSPEED);
         // Rise the leg2
@@ -1215,7 +1200,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         delay(ACTIONSPEED);
 
         // Move back to touch the ground3
-        l4.s1.write(90);  //90
+        l4.write(90);  //90
         l5.Step_bw(120);
         delay(ACTIONSPEED);
 
@@ -1225,7 +1210,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         delay(ACTIONSPEED);
 
         // Move back to touch the ground5
-        l8.s1.write(90);  //90
+        l8.write(90);  //90
         l9.Step_fw(72.5);
         delay(ACTIONSPEED);
 
@@ -1233,7 +1218,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         l10.Step_bw(135);
         l11.Step_bw(90);
         delay(ACTIONSPEED);
-        l12.s1.write(110 - cntr);
+        l12.write(110 - cntr);
 
         if (cntr < 20) {
             cntr++;
@@ -1251,18 +1236,18 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     cntr = 0;
     for (int i = 0; i <= 45; i++) {
         l0.Step_bw(90);
-        l2.s1.write(90);
+        l2.write(90);
         delay(ACTIONSPEED);
 
         l4.Step_bw(90);
-        l6.s1.write(90);
+        l6.write(90);
         delay(ACTIONSPEED);
 
         l8.Step_fw(90);
-        l10.s1.write(90);
+        l10.write(90);
         delay(ACTIONSPEED);
 
-        l12.s1.write(90 - cntr);
+        l12.write(90 - cntr);
 
         if (cntr < 20) {
             cntr++;
@@ -1288,7 +1273,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         l1.Step_fw(45);
         delay(ACTIONSPEED);
         // Move back to touch the ground2
-        l2.s1.write(90);
+        l2.write(90);
         l3.Step_bw(67.5);
         delay(ACTIONSPEED);
 
@@ -1298,7 +1283,7 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         delay(ACTIONSPEED);
 
         // Move back to touch the ground4
-        l6.s1.write(90);
+        l6.write(90);
         l7.Step_fw(90);
         delay(ACTIONSPEED);
 
@@ -1308,11 +1293,11 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
         delay(ACTIONSPEED);
 
         // Move back to touch the ground6
-        l10.s1.write(90);
+        l10.write(90);
         l11.Step_fw(45);
         delay(ACTIONSPEED);
 
-        l12.s1.write(70 + cntr);
+        l12.write(70 + cntr);
 
         if (cntr < 20) {
             cntr++;
@@ -1326,14 +1311,14 @@ void advoid() { // Called when user pushes "Auto". Im assuming its going to walk
     long a = ultrasonic();
     if (a <= 20 && a > 0) {
         for (int i = 0; i < 6; i++){
-            move_right_latest1();
+            move_right();
             if (Serial.available() > 0) {
                 break;
             }
         }
     }
-    //  battery();
+    //  get_battery_level();
 
-    //  sendbattery();
+    //  sendbatterylevel();
 
 }

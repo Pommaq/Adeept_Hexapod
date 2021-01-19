@@ -12,9 +12,8 @@
 #include <Good_code.h>
 #include <Shitty_Code.h>
 
-class leg{
+class leg: public Servo{
     public:
-        Servo s1;
         //Servo l2.s1; // Used later once I figure out what servo goes where
         int b_counter = 0; // two counters for now until I know its safe for them to be 1
         int f_counter = 0;
